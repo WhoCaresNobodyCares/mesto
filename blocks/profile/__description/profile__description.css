@@ -1,0 +1,18 @@
+.profile__description {
+  margin: 0;
+  color: var(--accent);
+  font: 400 18px/22px "Inter", arial, sans-serif;
+}
+
+@media screen and (max-width: 720px) {
+  .profile__description {
+    text-align: center;
+    margin: 0 0 36px 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .profile__description {
+    font: 400 14px/16px "Inter", arial, sans-serif;
+  }
+}

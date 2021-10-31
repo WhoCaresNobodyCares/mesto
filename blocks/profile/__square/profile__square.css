@@ -1,0 +1,19 @@
+.profile__square {
+  box-sizing: border-box;
+  min-width: 24px;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--accent);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0 0 0;
+}
+
+@media screen and (max-width: 480px) {
+  .profile__square {
+    min-width: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}

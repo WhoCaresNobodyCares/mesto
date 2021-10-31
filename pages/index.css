@@ -3,3 +3,17 @@
 @import url(../vendor/fonts.css);
 @import url(../vendor/root.css);
 /* body */
+@import url(../blocks/body/body.css);
+@import url(../blocks/body/__header/body__header.css);
+/* header */
+@import url(../blocks/header/header.css);
+/* main */
+@import url(../blocks/main/__profile/main__profile.css);
+/* profile */
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__wrap/profile__wrap.css);
+@import url(../blocks/profile/__name/profile__name.css);
+@import url(../blocks/profile/__square/profile__square.css);
+@import url(../blocks/profile/__description/profile__description.css);
+@import url(../blocks/profile/__rectangle/profile__rectangle.css);
