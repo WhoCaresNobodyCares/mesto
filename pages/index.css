@@ -1,24 +1,24 @@
 /* vendor */
 @import url(../vendor/normalize.css);
-@import url(../vendor/fonts.css);
+@import url(../vendor/fonts.css); /** checked */
 @import url(../vendor/root.css);
 /* body */
-@import url(../blocks/body/body.css);
-@import url(../blocks/body/__header/body__header.css);
+@import url(../blocks/body/body.css); /** checked */
+@import url(../blocks/body/__header/body__header.css); /** checked */
 @import url(../blocks/body/__footer/body__footer.css);
 /* header */
-@import url(../blocks/header/header.css);
+@import url(../blocks/header/header.css); /** checked */
 /* main */
-@import url(../blocks/main/__profile/main__profile.css);
+@import url(../blocks/main/__profile/main__profile.css); /** checked */
 @import url(../blocks/main/__elements/main__elements.css);
 /* profile */
-@import url(../blocks/profile/profile.css);
-@import url(../blocks/profile/__avatar/profile__avatar.css);
-@import url(../blocks/profile/__wrap/profile__wrap.css);
-@import url(../blocks/profile/__name/profile__name.css);
-@import url(../blocks/profile/__edit-button/profile__edit-button.css);
-@import url(../blocks/profile/__description/profile__description.css);
-@import url(../blocks/profile/__add-button/profile__add-button.css);
+@import url(../blocks/profile/profile.css); /** checked */
+@import url(../blocks/profile/__avatar/profile__avatar.css); /** checked */
+@import url(../blocks/profile/__wrap/profile__wrap.css); /** checked */
+@import url(../blocks/profile/__name/profile__name.css); /** checked */
+@import url(../blocks/profile/__edit-button/profile__edit-button.css); /** checked */
+@import url(../blocks/profile/__description/profile__description.css); /** checked */
+@import url(../blocks/profile/__add-button/profile__add-button.css); /** checked */
 /* elements */
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/elements/__card/elements__card.css);

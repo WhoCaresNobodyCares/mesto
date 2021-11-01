@@ -2,6 +2,7 @@
   margin: 0 19px 0 0;
   color: var(--accent);
   font: 500 42px/48px "Inter", arial, sans-serif;
+  -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -9,12 +10,8 @@
 
 @media screen and (max-width: 720px) {
   .profile__name {
+    margin: 0 10px 0 0;
     text-align: center;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .profile__name {
     font: 500 27px/32px "Inter", arial, sans-serif;
   }
 }
