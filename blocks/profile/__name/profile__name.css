@@ -2,6 +2,9 @@
   margin: 0 19px 0 0;
   color: var(--accent);
   font: 500 42px/48px "Inter", arial, sans-serif;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 720px) {

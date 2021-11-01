@@ -1,0 +1,8 @@
+.elements {
+  background: var(--test);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
+  grid-template-rows: 362px;
+  column-gap: 17px;
+  row-gap: 20px;
+}

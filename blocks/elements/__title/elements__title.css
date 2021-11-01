@@ -1,0 +1,9 @@
+.elements__title {
+  color: var(--background);
+  font: 900 24px/30px "Inter", arial, sans-serif;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
+  margin: 0;
+}

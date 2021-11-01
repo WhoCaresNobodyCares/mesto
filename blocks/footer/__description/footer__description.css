@@ -1,0 +1,5 @@
+.footer__description {
+  color: var(--accent-faint);
+  font: 400 18px/22px "Inter", arial, sans-serif;
+  margin: 0;
+}
