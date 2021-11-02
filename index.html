@@ -63,7 +63,6 @@
         />
       </svg>
     </header>
-
     <main class="main">
       <section class="profile main__profile">
         <img
@@ -113,7 +112,7 @@
         <div class="elements__card">
           <div class="elements__image"></div>
           <div class="elements__description">
-            <p class="elements__title">Кот</p>
+            <h2 class="elements__title">Кот</h2>
             <svg
               class="elements__icon"
               width="22"
@@ -132,7 +131,7 @@
         <div class="elements__card">
           <div class="elements__image"></div>
           <div class="elements__description">
-            <p class="elements__title">Котейка</p>
+            <h2 class="elements__title">Котейка</h2>
             <svg
               class="elements__icon"
               width="22"
@@ -151,7 +150,7 @@
         <div class="elements__card">
           <div class="elements__image"></div>
           <div class="elements__description">
-            <p class="elements__title">Котенок</p>
+            <h2 class="elements__title">Котенок</h2>
             <svg
               class="elements__icon"
               width="22"
@@ -170,7 +169,7 @@
         <div class="elements__card">
           <div class="elements__image"></div>
           <div class="elements__description">
-            <p class="elements__title">Кот в высоком разрешении</p>
+            <h2 class="elements__title">Кот в высоком разрешении</h2>
             <svg
               class="elements__icon"
               width="22"
@@ -189,7 +188,7 @@
         <div class="elements__card">
           <div class="elements__image"></div>
           <div class="elements__description">
-            <p class="elements__title">Котенок на коленках</p>
+            <h2 class="elements__title">Котенок на коленках</h2>
             <svg
               class="elements__icon"
               width="22"
@@ -208,7 +207,7 @@
         <div class="elements__card">
           <div class="elements__image"></div>
           <div class="elements__description">
-            <p class="elements__title">Котец</p>
+            <h2 class="elements__title">Котец</h2>
             <svg
               class="elements__icon"
               width="22"
@@ -229,5 +228,35 @@
     <footer class="footer body__footer">
       <p class="footer__description">&copy; 2020 Mesto Russia</p>
     </footer>
+    <div class="popup popup__opened">
+      <div class="popup__body">
+        <div class="popup__content">
+          <a href="#" class="popup__close"
+            ><svg
+              class="popup__close-icon"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M32 28.8L19.2 16L32 3.2L28.8 0L16 12.8L3.2 0L0 3.2L12.8 16L0 28.8L3.2 32L16 19.2L28.8 32L32 28.8Z"
+                fill="white"
+              />
+            </svg>
+          </a>
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input type="text" name="name" class="popup__name" required />
+          <input
+            type="text"
+            name="description"
+            class="popup__description"
+            required
+          />
+          <button class="popup__submit">Сохранить</button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

@@ -3,3 +3,9 @@
   font: 400 18px/22px "Inter", arial, sans-serif;
   margin: 0;
 }
+
+@media screen (max-width: 720px) {
+  .footer__description {
+    font: 400 14px/17px "Inter", arial, sans-serif;
+  }
+}

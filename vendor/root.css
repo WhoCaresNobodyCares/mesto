@@ -1,5 +1,6 @@
 :root {
   --background: #000;
+  --background-popup: rgba(0, 0, 0, 0.5);
   --accent: #fff;
   --accent-faint: #545454;
   --test: rgba(200, 200, 200, 0.05);
