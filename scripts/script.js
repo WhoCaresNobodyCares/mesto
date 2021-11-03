@@ -32,4 +32,66 @@ function formSubmitHandler(evt) {
   ).value;
   popup.classList.remove("popup_opened");
 }
-/* сердечки по клику */
+/* hearts on click */
+let elementsIcons = document.querySelectorAll(".elements__icon");
+console.log(elementsIcons);
+
+let a = elementsIcons.item(0);
+a.addEventListener("click", aChange);
+function aChange() {
+  if (a.getAttribute("src") === "./images/elements__icon.svg") {
+    a.setAttribute("src", "./images/elements__icon-black.svg");
+  } else {
+    a.setAttribute("src", "./images/elements__icon.svg");
+  }
+}
+
+let b = elementsIcons.item(1);
+b.addEventListener("click", bChange);
+function bChange() {
+  if (b.getAttribute("src") === "./images/elements__icon.svg") {
+    b.setAttribute("src", "./images/elements__icon-black.svg");
+  } else {
+    b.setAttribute("src", "./images/elements__icon.svg");
+  }
+}
+
+let c = elementsIcons.item(2);
+c.addEventListener("click", cChange);
+function cChange() {
+  if (c.getAttribute("src") === "./images/elements__icon.svg") {
+    c.setAttribute("src", "./images/elements__icon-black.svg");
+  } else {
+    c.setAttribute("src", "./images/elements__icon.svg");
+  }
+}
+
+let d = elementsIcons.item(3);
+d.addEventListener("click", dChange);
+function dChange() {
+  if (d.getAttribute("src") === "./images/elements__icon.svg") {
+    d.setAttribute("src", "./images/elements__icon-black.svg");
+  } else {
+    d.setAttribute("src", "./images/elements__icon.svg");
+  }
+}
+
+let e = elementsIcons.item(4);
+e.addEventListener("click", eChange);
+function eChange() {
+  if (e.getAttribute("src") === "./images/elements__icon.svg") {
+    e.setAttribute("src", "./images/elements__icon-black.svg");
+  } else {
+    e.setAttribute("src", "./images/elements__icon.svg");
+  }
+}
+
+let f = elementsIcons.item(5);
+f.addEventListener("click", fChange);
+function fChange() {
+  if (f.getAttribute("src") === "./images/elements__icon.svg") {
+    f.setAttribute("src", "./images/elements__icon-black.svg");
+  } else {
+    f.setAttribute("src", "./images/elements__icon.svg");
+  }
+}
