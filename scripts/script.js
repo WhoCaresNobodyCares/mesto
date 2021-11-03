@@ -34,7 +34,6 @@ function formSubmitHandler(evt) {
 }
 /* hearts on click */
 let elementsIcons = document.querySelectorAll(".elements__icon");
-console.log(elementsIcons);
 
 let a = elementsIcons.item(0);
 a.addEventListener("click", aChange);
