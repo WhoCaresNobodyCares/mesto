@@ -1,37 +1,35 @@
 /* variables */
-let editButton = document.querySelector(".profile__edit-button");
+let profileEditButton = document.querySelector(".profile__edit-button");
 let popup = document.querySelector(".popup");
 let popupClose = popup.querySelector(".popup__close");
+let popupForm = document.querySelector(".popup__form");
 let profileName = document.querySelector(".profile__name");
-let popupName = popup.querySelector(".popup__name");
 let profileDescription = document.querySelector(".profile__description");
-let popupDescription = popup.querySelector(".popup__description");
-let popupSubmit = popup.querySelector(".popup__submit");
-/* open/close popup */
+let popupSubmit = popupForm.querySelector(".popup__submit");
 
-editButton.onclick = function () {
-  // Вот так могу
-  popupName.setAttribute("placeholder", profileName.innerHTML);
-  popupDescription.setAttribute("placeholder", profileDescription.innerHTML);
+/* popup open */
+profileEditButton.addEventListener("click", popupOpenFunction);
+function popupOpenFunction() {
+  popupForm.querySelector(".popup__name").value = profileName.innerHTML;
+  popupForm.querySelector(".popup__description").value =
+    profileDescription.innerHTML;
   popup.classList.add("popup_opened");
-};
+}
 
-popupClose.addEventListener("click", function () {
-  // И как надо могу =D
+/* popup close */
+popupClose.addEventListener("click", popupCloseFunction);
+function popupCloseFunction() {
   popup.classList.remove("popup_opened");
-});
+}
 
-/* save button */
-popupSubmit.addEventListener("click", function () {
-  if (popupName.value === "") {
-    alert("Введите имя пользователя");
-    return;
-  }
-  if (popupDescription.value === "") {
-    alert("Введите описание профиля");
-    return;
-  }
-  profileName.innerHTML = popupName.value;
-  profileDescription.innerHTML = popupDescription.value;
+/* form handling */
+popupForm.addEventListener("submit", formSubmitHandler);
+function formSubmitHandler(evt) {
+  evt.preventDefault();
+  profileName.textContent = popupForm.querySelector(".popup__name").value;
+  profileDescription.textContent = popupForm.querySelector(
+    ".popup__description"
+  ).value;
   popup.classList.remove("popup_opened");
-});
+}
+/* сердечки по клику */

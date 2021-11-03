@@ -8,10 +8,15 @@
   overflow: hidden;
 }
 
+@media screen and (max-width: 800px) {
+  .profile__name {
+    font: 500 27px/32px "Inter", arial, sans-serif;
+  }
+}
+
 @media screen and (max-width: 720px) {
   .profile__name {
     margin: 0 10px 0 0;
     text-align: center;
-    font: 500 27px/32px "Inter", arial, sans-serif;
   }
 }

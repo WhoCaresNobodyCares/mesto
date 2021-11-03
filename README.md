@@ -7,7 +7,7 @@
 ## Технологии
 
 - HTML5
-- CSS 3
+- CSS3
 - FlexBox
 - Grid Layout
 - JavaScript
