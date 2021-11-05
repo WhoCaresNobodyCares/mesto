@@ -1,0 +1,22 @@
+.profile__description {
+  /* position */
+  margin: 0;
+  max-width: 300px;
+  /* style */
+  color: var(--white);
+  /* font & text */
+  font: 400 18px/22px "Inter", arial, sans-serif;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 800px) {
+  .profile__description {
+    /* position */
+    margin: 0 auto 30px auto;
+    /* font & text */
+    font: 400 14px/17px "Inter", arial, sans-serif;
+    text-align: center;
+  }
+}

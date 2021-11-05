@@ -1,0 +1,35 @@
+.profile__edit {
+  /* position */
+  margin: 5px 0 0 0;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  /* sizing */
+  box-sizing: border-box;
+  /* style */
+  border: 1px solid var(--white);
+  background: transparent;
+  cursor: pointer;
+  transition: opacity 0.2s ease-out;
+  /* background image */
+  background-image: url("../../../images/profile__edit.svg");
+  background-size: 10px 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.profile__edit:hover {
+  /* style */
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 800px) {
+  .profile__edit {
+    /* position */
+    margin: 0 0 4px 0;
+    width: 18px;
+    height: 18px;
+    /* background image */
+    background-size: 8px 8px;
+  }
+}
