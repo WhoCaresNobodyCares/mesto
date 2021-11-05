@@ -1,0 +1,19 @@
+.card__icon {
+  border: none;
+  padding: 0;
+  margin: 0 0 0 40px;
+  min-width: 22px;
+  min-height: 19px;
+  cursor: pointer;
+  -webkit-transition: opacity 1s ease-out;
+  -o-transition: opacity 1s ease-out;
+  transition: opacity 1s ease-out;
+  background-image: url("../../../images/elements__icon.svg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.card__icon:hover {
+  opacity: 0.6;
+}

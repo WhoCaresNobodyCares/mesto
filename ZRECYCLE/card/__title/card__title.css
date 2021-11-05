@@ -1,4 +1,4 @@
-.elements__title {
+.card__title {
   color: var(--background);
   font: 900 24px/30px "Inter", arial, sans-serif;
   -o-text-overflow: ellipsis;

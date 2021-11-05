@@ -1,0 +1,8 @@
+:root {
+  --black: #000;
+  --black-transparent: ;
+  --white: #fff;
+  --grey: #545454;
+  --grey-transparent: rgba(33%, 33%, 33%, 0.7);
+  --test: rgba(255, 255, 255, 0.05);
+}

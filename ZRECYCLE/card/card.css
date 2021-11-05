@@ -1,5 +1,4 @@
-.elements__card {
-  height: 361px;
+.card {
   background: var(--accent);
   border-radius: 10px;
   overflow: hidden;

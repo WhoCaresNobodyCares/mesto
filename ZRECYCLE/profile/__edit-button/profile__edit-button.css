@@ -1,23 +1,18 @@
 .profile__edit-button {
   border: 1px solid var(--accent);
   margin-top: 5px;
-  min-width: 24px;
-  min-height: 24px;
+  width: 24px;
+  height: 24px;
   background: transparent;
   cursor: pointer;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
   padding: 0;
   -webkit-transition: opacity 1s ease-out;
   -o-transition: opacity 1s ease-out;
   transition: opacity 1s ease-out;
+  background-image: url("../../../images/profile__pen-icon.svg");
+  background-size: 10px 10px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .profile__edit-button:hover {
@@ -26,7 +21,7 @@
 
 @media screen and (max-width: 720px) {
   .profile__edit-button {
-    min-width: 18px;
-    min-height: 18px;
+    width: 18px;
+    height: 18px;
   }
 }

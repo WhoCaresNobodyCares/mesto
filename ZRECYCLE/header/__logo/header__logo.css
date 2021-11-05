@@ -1,16 +1,10 @@
 .header__logo {
-  /* position */
-  width: 142px;
-  height: 33px;
-  /* style */
-  transition: opacity 0.2s ease-out;
+  transition: var(--transition);
 }
 
 .header__logo:hover {
-  /* style */
-  opacity: 0.6;
+  opacity: var(--hover-transparency);
 }
-
 @media screen and (max-width: 800px) {
   .header__logo {
     width: 104px;

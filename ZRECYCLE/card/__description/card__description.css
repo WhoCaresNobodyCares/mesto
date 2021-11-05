@@ -1,5 +1,4 @@
-.elements__description {
-  height: 79px;
+.card__description {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -9,6 +8,5 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding-left: 21px;
-  padding-right: 20px;
+  padding: 24px 20px 26px 21px;
 }

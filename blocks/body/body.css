@@ -1,7 +1,8 @@
 .body {
+  /* position */
   margin: 0;
   padding: 0;
+  /* style */
   line-height: 0;
-  background: var(--background);
-  position: relative;
+  background: var(--black);
 }
