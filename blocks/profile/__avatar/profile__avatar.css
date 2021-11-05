@@ -1,9 +1,7 @@
 .profile__avatar {
-  /* position */
   margin: 0 30px 0 0;
   width: 120px;
   height: 120px;
-  /* style */
   border-radius: 100%;
 }
 

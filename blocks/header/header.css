@@ -1,8 +1,5 @@
 .header {
-  /* sizing */
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  /* style */
   border-bottom: 1px solid var(--grey-transparent);
-  /* !!! test */
-  background: var(--test);
 }

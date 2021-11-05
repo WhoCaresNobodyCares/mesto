@@ -1,8 +1,0 @@
-.card__image {
-  height: 282px;
-  overflow: hidden;
-  background-image: url("../../../images/elements__image.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
