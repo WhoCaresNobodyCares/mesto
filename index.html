@@ -1,126 +1,96 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mesto</title>
-    <link rel="stylesheet" href="./pages/index.css" />
-  </head>
 
-  <body class="body">
-    <!-- header -->
-    <header class="header body__header">
-      <a href="#" class="header__link"
-        ><img
-          src="./images/header__logo.svg"
-          alt="Логотип"
-          class="header__logo"
-      /></a>
-    </header>
-    <!-- main -->
-    <main class="main body__main">
-      <!-- profile-->
-      <section class="profile main__profile">
-        <img
-          src="./images/profile__avatar.jpg"
-          alt="Аватар профиля"
-          class="profile__avatar"
-        />
-        <div class="profile__information">
-          <div class="profile__wrap">
-            <h1 class="profile__username">Жак-Ив Кусто</h1>
-            <button
-              type="button"
-              aria-label="Редактирование профиля"
-              class="profile__edit"
-            ></button>
-          </div>
-          <p class="profile__description">Исследователь океана</p>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mesto</title>
+  <link rel="stylesheet" href="./pages/index.css" />
+</head>
+
+<body class="body">
+  <!-- header -->
+  <header class="header body__header">
+    <a href="#" class="header__link"><img src="./images/header__logo.svg" alt="Логотип" class="header__logo" /></a>
+  </header>
+  <!-- main -->
+  <main class="main body__main">
+    <!-- profile-->
+    <section class="profile main__profile">
+      <img src="./images/profile__avatar.jpg" alt="Аватар профиля" class="profile__avatar" />
+      <div class="profile__information">
+        <div class="profile__wrap">
+          <h1 class="profile__username">Жак-Ив Кусто</h1>
+          <button type="button" aria-label="Редактирование профиля" class="profile__edit"></button>
         </div>
-        <button
-          type="button"
-          aria-label="Добавление фотографий"
-          class="profile__add"
-        ></button>
-      </section>
-      <!-- elements -->
-      <section class="elements">
-        <div class="card">
-          <div class="card__image"></div>
-          <div class="card__description">
-            <h2 class="card__title">Котофей</h2>
-            <button type="button" aria-label="Лайк" class="card__like"></button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__image"></div>
-          <div class="card__description">
-            <h2 class="card__title">Котец</h2>
-            <button type="button" aria-label="Лайк" class="card__like"></button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__image"></div>
-          <div class="card__description">
-            <h2 class="card__title">Котенок</h2>
-            <button type="button" aria-label="Лайк" class="card__like"></button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__image"></div>
-          <div class="card__description">
-            <h2 class="card__title">Кот с троеточием</h2>
-            <button type="button" aria-label="Лайк" class="card__like"></button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__image"></div>
-          <div class="card__description">
-            <h2 class="card__title">Кот</h2>
-            <button type="button" aria-label="Лайк" class="card__like"></button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__image"></div>
-          <div class="card__description">
-            <h2 class="card__title">Кот с троеточием</h2>
-            <button type="button" aria-label="Лайк" class="card__like"></button>
-          </div>
-        </div>
-      </section>
-    </main>
-    <footer class="footer body__footer">
-      <p class="footer__description">&copy; 2020 Mesto Russia</p>
-    </footer>
-    <!-- popup -->
-    <!-- popup_opened -->
-    <div class="popup">
-      <div class="popup__body">
-        <button
-          type="button"
-          aria-label="Закрыть всплывающее окно"
-          class="popup__close"
-        ></button>
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form action="#" method="post" name="popupForm" class="popup__form">
-          <input
-            class="popup__input"
-            type="text"
-            name="usernameInput"
-            id="usernameInput"
-          />
-          <input
-            class="popup__input"
-            type="text"
-            name="descriptionInput"
-            id="descriptionInput"
-          />
-          <button type="submit" class="popup__submit">Сохранить</button>
-        </form>
+        <p class="profile__description">Исследователь океана</p>
       </div>
+      <button type="button" aria-label="Добавление фотографий" class="profile__add"></button>
+    </section>
+    <!-- elements -->
+    <section class="elements">
+      <div class="card">
+        <div class="card__image"></div>
+        <div class="card__description">
+          <h2 class="card__title">Котофей</h2>
+          <button type="button" aria-label="Лайк" class="card__like"></button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__image"></div>
+        <div class="card__description">
+          <h2 class="card__title">Котец</h2>
+          <button type="button" aria-label="Лайк" class="card__like"></button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__image"></div>
+        <div class="card__description">
+          <h2 class="card__title">Котенок</h2>
+          <button type="button" aria-label="Лайк" class="card__like"></button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__image"></div>
+        <div class="card__description">
+          <h2 class="card__title">Кот с троеточием</h2>
+          <button type="button" aria-label="Лайк" class="card__like"></button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__image"></div>
+        <div class="card__description">
+          <h2 class="card__title">Кот</h2>
+          <button type="button" aria-label="Лайк" class="card__like"></button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__image"></div>
+        <div class="card__description">
+          <h2 class="card__title">Кот с троеточием</h2>
+          <button type="button" aria-label="Лайк" class="card__like"></button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer body__footer">
+    <p class="footer__description">&copy; 2020 Mesto Russia</p>
+  </footer>
+  <!-- popup -->
+  <div class="popup">
+    <div class="popup__body">
+      <button type="button" aria-label="Закрыть всплывающее окно" class="popup__close"></button>
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form action="#" method="post" name="popupForm" class="popup__form">
+        <input class="popup__input" type="text" name="usernameInput" id="usernameInput" />
+        <input class="popup__input" type="text" name="descriptionInput" id="descriptionInput" />
+        <button type="submit" class="popup__submit">Сохранить</button>
+      </form>
     </div>
-    <!-- javascript -->
-    <script src="./scripts/script.js"></script>
-  </body>
+  </div>
+  <!-- javascript -->
+  <script src="./scripts/script.js"></script>
+</body>
+
 </html>

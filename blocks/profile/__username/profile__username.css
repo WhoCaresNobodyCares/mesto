@@ -12,6 +12,7 @@
 @media screen and (max-width: 800px) {
   .profile__username {
     margin: 0 10px 0 0;
+    max-width: 220px;
     font: 500 27px/33px "Inter", arial, sans-serif;
     text-align: center;
   }
