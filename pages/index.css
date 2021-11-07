@@ -49,7 +49,6 @@
 /* popup */
 @import url(../blocks/popup/popup.css);
 /* popup modifier */
-@import url(../blocks/popup/_hidden/popup_hidden.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 /* popup elements */
 @import url(../blocks/popup/__body/popup__body.css);

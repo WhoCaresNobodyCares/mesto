@@ -12,13 +12,11 @@ let popupDescriptionInput = popup.querySelector("#descriptionInput");
 function openPopup() {
   popupUserNameInput.value = profileUserName.textContent;
   popupDescriptionInput.value = profileDescription.textContent;
-  popup.classList.remove("popup_hidden");
   popup.classList.add("popup_opened");
 }
 
 function closePopup() {
   popup.classList.remove("popup_opened");
-  popup.classList.add("popup_hidden");
 }
 
 function formSubmitHandler(evt) {
