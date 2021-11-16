@@ -1,8 +1,8 @@
 .card__image {
   width: 100%;
   height: 282px;
-  background-image: url("../../../images/card__image.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center center;
+  object-position: center center;
 }
