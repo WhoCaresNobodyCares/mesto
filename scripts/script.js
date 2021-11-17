@@ -1,4 +1,5 @@
 /* arrays */
+
 const initialArray = [
   {
     name: "Шестой город",
@@ -62,22 +63,6 @@ const mapArray = initialArray.map((item) => {
 
 /* functions */
 
-function insertCard(item) {
-  const cardRemove = item.querySelector(".card__remove");
-  cardRemove.addEventListener("click", function () {
-    item.remove();
-  });
-  const cardLike = item.querySelector(".card__like");
-  cardLike.addEventListener("click", function () {
-    cardLike.classList.toggle("card__like_active");
-  });
-  const cardImage = item.querySelector(".card__image");
-  cardImage.addEventListener("click", function () {
-    appearModal(item);
-  });
-  elements.prepend(item);
-}
-
 function openPopup(item) {
   if (item.id === "profileEditPopup") {
     item.querySelector("#usernameInput").value = profileName.textContent;
@@ -107,6 +92,22 @@ function formSubmitHandler(item) {
     clone.querySelector(".card__image").src = cardImage;
     insertCard(clone);
   }
+}
+
+function insertCard(item) {
+  const cardRemove = item.querySelector(".card__remove");
+  cardRemove.addEventListener("click", function () {
+    item.remove();
+  });
+  const cardLike = item.querySelector(".card__like");
+  cardLike.addEventListener("click", function () {
+    cardLike.classList.toggle("card__like_active");
+  });
+  const cardImage = item.querySelector(".card__image");
+  cardImage.addEventListener("click", function () {
+    appearModal(item);
+  });
+  elements.prepend(item);
 }
 
 function appearModal(item) {

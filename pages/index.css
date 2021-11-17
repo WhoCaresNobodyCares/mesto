@@ -48,9 +48,9 @@
 @import url(../blocks/footer/__description/footer__description.css);
 
 /* popup */
-@import url(../blocks/popup/popup.css); /* !!! transition  */
+@import url(../blocks/popup/popup.css);
 /* popup modifier */
-@import url(../blocks/popup/_opened/popup_opened.css); /* !!! transition  */
+@import url(../blocks/popup/_opened/popup_opened.css);
 /* popup elements */
 @import url(../blocks/popup/__body/popup__body.css);
 @import url(../blocks/popup/__close/popup__close.css);
