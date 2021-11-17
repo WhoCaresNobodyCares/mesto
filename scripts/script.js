@@ -48,7 +48,29 @@ const modalImage = modal.querySelector(".modal__image");
 const modalCaption = modal.querySelector(".modal__caption");
 const modalClose = modal.querySelector(".modal__close");
 
-/* variables with functions */
+/* functions */
+
+function appearModal(item) {
+  modalImage.src = item.querySelector(".card__image").src;
+  modalCaption.textContent = item.querySelector(".card__title").textContent;
+  modal.classList.add("modal_opened");
+}
+
+function insertCard(item) {
+  const cardRemove = item.querySelector(".card__remove");
+  cardRemove.addEventListener("click", function () {
+    item.remove();
+  });
+  const cardLike = item.querySelector(".card__like");
+  cardLike.addEventListener("click", function () {
+    cardLike.classList.toggle("card__like_active");
+  });
+  const cardImage = item.querySelector(".card__image");
+  cardImage.addEventListener("click", function () {
+    appearModal(item);
+  });
+  elements.prepend(item);
+}
 
 const renderCards = (item) => {
   const clone = card.cloneNode(true);
@@ -60,8 +82,6 @@ const renderCards = (item) => {
 const mapArray = initialArray.map((item) => {
   return renderCards(item);
 });
-
-/* functions */
 
 function openPopup(item) {
   if (item.id === "profileEditPopup") {
@@ -92,28 +112,6 @@ function formSubmitHandler(item) {
     clone.querySelector(".card__image").src = cardImage;
     insertCard(clone);
   }
-}
-
-function insertCard(item) {
-  const cardRemove = item.querySelector(".card__remove");
-  cardRemove.addEventListener("click", function () {
-    item.remove();
-  });
-  const cardLike = item.querySelector(".card__like");
-  cardLike.addEventListener("click", function () {
-    cardLike.classList.toggle("card__like_active");
-  });
-  const cardImage = item.querySelector(".card__image");
-  cardImage.addEventListener("click", function () {
-    appearModal(item);
-  });
-  elements.prepend(item);
-}
-
-function appearModal(item) {
-  modalImage.src = item.querySelector(".card__image").src;
-  modalCaption.textContent = item.querySelector(".card__title").textContent;
-  modal.classList.add("modal_opened");
 }
 
 /* event listeners */
