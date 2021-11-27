@@ -11,9 +11,7 @@
 }
 
 .popup__input:focus {
-  border-radius: 2px;
-  border-bottom: 0;
-  outline: 1px solid var(--black-transparent-input);
+  outline: none;
 }
 
 .popup__input:nth-child(2) {

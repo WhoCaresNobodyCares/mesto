@@ -40,66 +40,60 @@ const profileName = profile.querySelector(".profile__username");
 const profileDescription = profile.querySelector(".profile__description");
 const profileEdit = profile.querySelector(".profile__edit");
 const profileAdd = profile.querySelector(".profile__add");
-// edit popup
+// !!! edit popup
 const editPopup = document.querySelector("#profileEditPopup");
 const editPopupClose = editPopup.querySelector(".popup__close");
 const editPopupForm = editPopup.querySelector(".popup__form");
 const editPopupNameInput = editPopup.querySelector("#usernameInput");
 const editPopupDescriptionInput = editPopup.querySelector("#descriptionInput");
-// add popup
+// !!! add popup
 const addPopup = document.querySelector("#cardAddPopup");
 const addPopupClose = addPopup.querySelector(".popup__close");
 const addPopupForm = addPopup.querySelector(".popup__form");
 const addPopupPlaceInput = addPopup.querySelector("#placeNameInput");
 const addPopupLinkInput = addPopup.querySelector("#linkInput");
-// image popup
+// !!! image popup
 const imagePopup = document.querySelector("#imageModalPopup");
 const imagePopupClose = imagePopup.querySelector(".popup__close");
 const imagePopupImage = imagePopup.querySelector(".popup__image");
 const imagePopupCapt = imagePopup.querySelector(".popup__caption");
 
 // ** FUNCTIONS
-
+// !!!
 function openPopup(item) {
   item.classList.add("popup_opened");
 }
-
+// !!!
 function closePopup(item) {
   item.classList.remove("popup_opened");
 }
 
-// ** вынесено
 function handleCardLike(cardCloneLike) {
   cardCloneLike.classList.toggle("card__like_active");
 }
 
-// ** вынесено
 function handleDeleteCard(cardClone) {
   cardClone.remove();
 }
 
-// ** вынесено
 function handleOpenImagePopup(cardCloneImage, cardCloneTitle) {
   imagePopupImage.src = cardCloneImage.src;
   imagePopupCapt.textContent = cardCloneTitle.textContent;
   openPopup(imagePopup);
 }
-
-// ** вынесено
+// !!!
 function handleOpenEditProfilePopup() {
   editPopupNameInput.value = profileName.textContent;
   editPopupDescriptionInput.value = profileDescription.textContent;
   openPopup(editPopup);
 }
-
-// ** вынесено
+// !!!
 function handleOpenNewCardPopup() {
   addPopupPlaceInput.value = "";
   addPopupLinkInput.value = "";
   openPopup(addPopup);
 }
 
-// ** переименовал функцию
 function createCard(item) {
   const cardClone = card.cloneNode(true);
   const cardCloneImage = cardClone.querySelector(".card__image");
@@ -109,17 +103,14 @@ function createCard(item) {
   cardCloneImage.src = item.link;
   cardCloneImage.alt = item.name;
   cardCloneTitle.textContent = item.name;
-  // ** вынес анонимную функцию в handleCardLike
   cardCloneLike.addEventListener(
     "click",
-    handleCardLike.bind(this, cardCloneLike) // ** bind для передачи
+    handleCardLike.bind(this, cardCloneLike)
   );
-  // ** вынес анонимную функцию в handleDeleteCard
   cardCloneRemove.addEventListener(
     "click",
     handleDeleteCard.bind(this, cardClone)
   );
-  // ** вынес анонимную функцию в handleOpenImagePopup
   cardCloneImage.addEventListener(
     "click",
     handleOpenImagePopup.bind(this, cardCloneImage, cardCloneTitle)
@@ -127,17 +118,14 @@ function createCard(item) {
   return cardClone;
 }
 
-// ** добавил второй параметр для append и prepend
 function insertCard(item, meth) {
   elements[meth](item);
 }
 
-// ** упростил перебор массива, избавившись от двойного обхода
 initialArray.forEach((item) => {
   insertCard(createCard(item), "append");
 });
-
-// ** переименовал, начиная с глагола
+// !!!
 function handleSubmitProfileEdit(evt) {
   evt.preventDefault();
   profileName.textContent = editPopupNameInput.value;
@@ -145,7 +133,6 @@ function handleSubmitProfileEdit(evt) {
   closePopup(editPopup);
 }
 
-// ** переименовал, начиная с глагола
 function handleSubmitCardAdd(evt) {
   evt.preventDefault();
   const cardObject = {
@@ -154,35 +141,32 @@ function handleSubmitCardAdd(evt) {
   };
   cardObject.name = addPopupPlaceInput.value;
   cardObject.link = addPopupLinkInput.value;
-  // ** упростил, записав в одно действие
   insertCard(createCard(cardObject), "prepend");
   closePopup(addPopup);
 }
 
 // ** EVENT LISTENERS
-
-// ** вынес анонимную функцию в handleOpenEditProfilePopup
+// !!!
 profileEdit.addEventListener("click", handleOpenEditProfilePopup);
-
+// !!!
 editPopupClose.addEventListener("click", function () {
   closePopup(editPopup);
 });
 
-// ** вынес анонимную функцию в handleOpenNewCardPopup
 profileAdd.addEventListener("click", handleOpenNewCardPopup);
-
+// !!!
 addPopupClose.addEventListener("click", function () {
   closePopup(addPopup);
 });
-
+// !!!
 imagePopupClose.addEventListener("click", function () {
   closePopup(imagePopup);
 });
-
+// !!!
 editPopupForm.addEventListener("submit", function (evt) {
   handleSubmitProfileEdit(evt);
 });
-
+// !!!
 addPopupForm.addEventListener("submit", function (evt) {
   handleSubmitCardAdd(evt);
 });
