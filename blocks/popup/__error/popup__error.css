@@ -1,4 +1,14 @@
 .popup__error {
-  font: 400 12px/15px "Inter", arial, sans-serif;
-  color: #FF0000;
+  font: 400 12px/15px 'Inter', arial, sans-serif;
+  color: #ff0000;
+  margin: 5px 0 13px 0;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0s ease-out 0.2s, opacity 0.2s ease-out;
+  -o-transition: visibility 0s ease-out 0.2s, opacity 0.2s ease-out;
+  transition: visibility 0s ease-out 0.2s, opacity 0.2s ease-out;
+}
+
+.popup__error:nth-of-type(2n) {
+  margin: 5px 0 0 0;
 }
