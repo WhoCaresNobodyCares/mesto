@@ -56,8 +56,8 @@ const img = document.querySelector('#imageModalPopup');
 const imgClose = img.querySelector('.popup__close');
 const imgImage = img.querySelector('.popup__image');
 const imgCapt = img.querySelector('.popup__caption');
-// config
-const config = {
+// conf
+const conf = {
   formClass: '.popup__form',
   inputClass: '.popup__input',
   submitClass: '.popup__submit',
@@ -113,7 +113,7 @@ const openEdit = node => {
 
 const openAdd = node => {
   addForm.reset();
-  openPopup(node);
+  openPopup(resetPopup(node));
 };
 
 const handleLike = element => {
@@ -173,7 +173,7 @@ const handleAddSubmit = e => {
 
 // CALLS
 
-enableValidation(config);
+enableValidation(conf);
 
 initArr.forEach(object => {
   insertCard(createCard(object), 'append');

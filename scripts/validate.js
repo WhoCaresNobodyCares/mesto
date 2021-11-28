@@ -34,10 +34,7 @@ const toggleButton = (form, button, { submitDisabledClass }) => {
   button.classList.toggle(submitDisabledClass, !isValid);
 };
 
-const setEvtListeners = (
-  form,
-  { inputClass, submitClass, submitDisabledClass, errorVisibleClass, inputErrorClass }
-) => {
+const setEvtListeners = (form, { inputClass, submitClass, submitDisabledClass, errorVisibleClass, inputErrorClass }) => {
   const inputs = Array.from(form.querySelectorAll(inputClass));
   const button = form.querySelector(submitClass);
   toggleButton(form, button, { submitDisabledClass });
