@@ -1,6 +1,6 @@
 // ARRAYS
 
-const initialArray = [
+const initArr = [
   {
     name: 'Первый город',
     link: 'https://images.unsplash.com/photo-1542902093-d55926049754?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
@@ -39,22 +39,20 @@ const profName = prof.querySelector('.profile__username');
 const profDesc = prof.querySelector('.profile__description');
 const profEdit = prof.querySelector('.profile__edit');
 const profAdd = prof.querySelector('.profile__add');
-// popups
-const popups = document.querySelectorAll('.popup');
 // edit popup
-const edit = popups[0];
+const edit = document.querySelector('#profileEditPopup');
 const editClose = edit.querySelector('.popup__close');
 const editForm = document.forms.editForm;
 const nameInput = editForm.querySelector('#nameInput');
 const descInput = editForm.querySelector('#descriptionInput');
 // add popup
-const add = popups[1];
+const add = document.querySelector('#cardAddPopup');
 const addClose = add.querySelector('.popup__close');
 const addForm = document.forms.addForm;
 const placeInput = addForm.querySelector('#placeInput');
 const linkInput = addForm.querySelector('#linkInput');
 // image popup
-const img = popups[2];
+const img = document.querySelector('#imageModalPopup');
 const imgClose = img.querySelector('.popup__close');
 const imgImage = img.querySelector('.popup__image');
 const imgCapt = img.querySelector('.popup__caption');
@@ -70,18 +68,47 @@ const config = {
 
 // FUNCTIONS
 
+const closeOverlay = e => {
+  closePopup(e.target);
+};
+
+const closeEsc = e => {
+  if (e.key === 'Escape') {
+    closePopup(document.querySelector('.popup_opened'));
+  }
+};
+
 const openPopup = node => {
+  node.addEventListener('click', closeOverlay);
+  document.addEventListener('keydown', closeEsc);
   node.classList.add('popup_opened');
 };
 
 const closePopup = node => {
+  node.removeEventListener('click', closeOverlay);
+  document.removeEventListener('keydown', closeEsc);
   node.classList.remove('popup_opened');
+};
+
+const resetPopup = node => {
+  const inputs = node.querySelectorAll('.popup__input');
+  inputs.forEach(input => {
+    input.classList.remove('popup__input_error');
+  });
+  const errs = node.querySelectorAll('.popup__error');
+  errs.forEach(err => {
+    err.textContent = '';
+  });
+  const button = node.querySelector('.popup__submit');
+  button.classList.add('popup__submit_disabled');
+  button.disabled = true;
+  return node;
 };
 
 const openEdit = node => {
   nameInput.value = profName.textContent;
   descInput.value = profDesc.textContent;
-  openPopup(node);
+  openPopup(resetPopup(node));
 };
 
 const openAdd = node => {
@@ -144,31 +171,12 @@ const handleAddSubmit = e => {
   closePopup(add);
 };
 
-const closeEsc = node => {
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      closePopup(node);
-    }
-  });
-};
-
-const closeOverlay = node => {
-  node.addEventListener('click', e => {
-    closePopup(e.target);
-  });
-};
-
 // CALLS
 
 enableValidation(config);
 
-initialArray.forEach(object => {
+initArr.forEach(object => {
   insertCard(createCard(object), 'append');
-});
-
-popups.forEach(node => {
-  closeEsc(node);
-  closeOverlay(node);
 });
 
 // LISTENERS
@@ -178,9 +186,5 @@ profAdd.addEventListener('click', openAdd.bind(this, add));
 editClose.addEventListener('click', closePopup.bind(this, edit));
 addClose.addEventListener('click', closePopup.bind(this, add));
 imgClose.addEventListener('click', closePopup.bind(this, img));
-editForm.addEventListener('submit', e => {
-  handleEditSubmit(e);
-});
-addForm.addEventListener('submit', e => {
-  handleAddSubmit(e);
-});
+editForm.addEventListener('submit', handleEditSubmit);
+addForm.addEventListener('submit', handleAddSubmit);
