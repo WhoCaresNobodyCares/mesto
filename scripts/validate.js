@@ -1,64 +1,61 @@
-// FUNCTIONS
+const resetPopup = (node, { ...conf }) => {
+  const inputs = node.querySelectorAll(conf.inputClass);
+  inputs.forEach(input => {
+    input.classList.remove(conf.inputErrorClass);
+  });
+  const errs = node.querySelectorAll(conf.popupErrorClass);
+  errs.forEach(err => {
+    err.textContent = '';
+  });
+  const button = node.querySelector(conf.submitClass);
+  button.classList.add(conf.submitDisabledClass);
+  button.disabled = true;
+  return node;
+};
 
-const hideErr = (form, input, { errorVisibleClass, inputErrorClass }) => {
+const hideErr = (form, input, conf) => {
   const err = form.querySelector(`#${input.id}-err`);
   err.textContent = '';
-  err.classList.remove(errorVisibleClass);
-  input.classList.remove(inputErrorClass);
+  err.classList.remove(conf.errorVisibleClass);
+  input.classList.remove(conf.inputErrorClass);
 };
 
-const showErr = (form, input, { errorVisibleClass, inputErrorClass }) => {
+const showErr = (form, input, conf) => {
   const err = form.querySelector(`#${input.id}-err`);
   err.textContent = input.validationMessage;
-  err.classList.add(errorVisibleClass);
-  input.classList.add(inputErrorClass);
+  err.classList.add(conf.errorVisibleClass);
+  input.classList.add(conf.inputErrorClass);
 };
 
-const checkValidity = (form, input, { errorVisibleClass, inputErrorClass }) => {
+const checkInputValidity = (form, input, conf) => {
   if (input.validity.valid) {
-    hideErr(form, input, {
-      errorVisibleClass,
-      inputErrorClass,
-    });
+    hideErr(form, input, conf);
   } else {
-    showErr(form, input, {
-      errorVisibleClass,
-      inputErrorClass,
-    });
+    showErr(form, input, conf);
   }
 };
 
-const toggleButton = (form, button, { submitDisabledClass }) => {
+const toggleButton = (form, conf) => {
   const isValid = form.checkValidity();
+  const button = form.querySelector(conf.submitClass);
   button.disabled = !isValid;
-  button.classList.toggle(submitDisabledClass, !isValid);
+  button.classList.toggle(conf.submitDisabledClass, !isValid);
 };
 
-const setEvtListeners = (form, { inputClass, submitClass, submitDisabledClass, errorVisibleClass, inputErrorClass }) => {
-  const inputs = Array.from(form.querySelectorAll(inputClass));
-  const button = form.querySelector(submitClass);
-  toggleButton(form, button, { submitDisabledClass });
+const setEvtListeners = (form, conf) => {
+  const inputs = Array.from(form.querySelectorAll(conf.inputClass));
+  toggleButton(form, conf);
   inputs.forEach(input => {
     input.addEventListener('input', () => {
-      checkValidity(form, input, {
-        errorVisibleClass,
-        inputErrorClass,
-      });
-      toggleButton(form, button, { submitDisabledClass });
+      checkInputValidity(form, input, conf);
+      toggleButton(form, conf);
     });
   });
 };
 
-const enableValidation = config => {
-  const { formClass, inputClass, submitClass, submitDisabledClass, errorVisibleClass, inputErrorClass } = config;
-  const forms = document.querySelectorAll(formClass);
+const enableValidation = ({ ...conf }) => {
+  const forms = document.querySelectorAll(conf.formClass);
   forms.forEach(form => {
-    setEvtListeners(form, {
-      inputClass,
-      submitClass,
-      submitDisabledClass,
-      errorVisibleClass,
-      inputErrorClass,
-    });
+    setEvtListeners(form, conf);
   });
 };
