@@ -5,11 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "pwa-msedge",
-      "request": "launch",
       "name": "Launch Edge",
-      "url": "http://127.0.0.1:5500/",
-      "webRoot": "${workspaceFolder}"
+      "request": "launch",
+      "type": "pwa-msedge",
+      "url": "http://localhost:8080",
+      "webRoot": "${workspaceFolder}",
+      "internalConsoleOptions": "openOnSessionStart"
     }
   ]
 }
