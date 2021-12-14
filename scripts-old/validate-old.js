@@ -43,7 +43,9 @@ const toggleButton = (form, conf) => {
 };
 
 const setEvtListeners = (form, conf) => {
-  const inputs = Array.from(form.querySelectorAll(conf.inputClass));
+  const inputs = Array.from(
+    form.querySelectorAll(conf.inputClass)
+  );
   toggleButton(form, conf);
   inputs.forEach(input => {
     input.addEventListener('input', () => {
