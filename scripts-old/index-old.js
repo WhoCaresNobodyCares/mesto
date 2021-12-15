@@ -1,26 +1,23 @@
-// const template = document
-//   .querySelector('#cardTemplate')
-//   .content.querySelector('.card');
-
+// const template = document.querySelector('#cardTemplate').content.querySelector('.card');
 // const elements = document.querySelector('#elements');
 
-const prof = document.querySelector('#profile');
-const profName = prof.querySelector('.profile__username');
-const profDesc = prof.querySelector('.profile__description');
-const profEdit = prof.querySelector('.profile__edit');
-const profAdd = prof.querySelector('.profile__add');
+// const prof = document.querySelector('#profile');
+// const profName = prof.querySelector('.profile__username');
+// const profDesc = prof.querySelector('.profile__description');
+// const profEdit = prof.querySelector('.profile__edit');
+// const profAdd = prof.querySelector('.profile__add');
 
-const edit = document.querySelector('#profileEditPopup');
-const editClose = edit.querySelector('.popup__close');
-const editForm = document.forms.editForm;
-const nameInput = editForm.querySelector('#nameInput');
-const descInput = editForm.querySelector('#descriptionInput');
+// const edit = document.querySelector('#profileEditPopup');
+// const editClose = edit.querySelector('.popup__close');
+// const editForm = document.forms.editForm;
+// const nameInput = editForm.querySelector('#nameInput');
+// const descInput = editForm.querySelector('#descriptionInput');
 
-const add = document.querySelector('#cardAddPopup');
-const addClose = add.querySelector('.popup__close');
-const addForm = document.forms.addForm;
-const placeInput = addForm.querySelector('#placeInput');
-const linkInput = addForm.querySelector('#linkInput');
+// const add = document.querySelector('#cardAddPopup');
+// const addClose = add.querySelector('.popup__close');
+// const addForm = document.forms.addForm;
+// const placeInput = addForm.querySelector('#placeInput');
+// const linkInput = addForm.querySelector('#linkInput');
 
 // const img = document.querySelector('#imageModalPopup');
 // const imgClose = img.querySelector('.popup__close');
@@ -37,38 +34,38 @@ const conf = {
   popupErrorClass: '.popup__error',
 };
 
-const closeOverlay = e => {
-  closePopup(e.target);
-};
-
-const closeEsc = e => {
-  if (e.key === 'Escape') {
-    closePopup(document.querySelector('.popup_opened'));
-  }
-};
-
-// const openPopup = node => {
-//   node.addEventListener('click', closeOverlay);
-//   document.addEventListener('keydown', closeEsc);
-//   node.classList.add('popup_opened');
+// const closeOverlay = e => {
+//   closePopup(e.target);
 // };
 
-const closePopup = node => {
-  node.removeEventListener('click', closeOverlay);
-  document.removeEventListener('keydown', closeEsc);
-  node.classList.remove('popup_opened');
-};
+// const closeEsc = e => {
+//   if (e.key === 'Escape') {
+//     closePopup(document.querySelector('.popup_opened'));
+//   }
+// };
 
-const openEdit = (node, conf) => {
-  nameInput.value = profName.textContent;
-  descInput.value = profDesc.textContent;
-  openPopup(resetPopup(node, conf));
-};
+// const openPopup = node => {
+// node.addEventListener('click', closeOverlay);
+// document.addEventListener('keydown', closeEsc);
+// node.classList.add('popup_opened');
+// };
 
-const openAdd = (node, conf) => {
-  addForm.reset();
-  openPopup(resetPopup(node, conf));
-};
+// const closePopup = node => {
+// node.removeEventListener('click', closeOverlay);
+// document.removeEventListener('keydown', closeEsc);
+// node.classList.remove('popup_opened');
+// };
+
+// const openEdit = (node, conf) => {
+// nameInput.value = profName.textContent;
+// descInput.value = profDesc.textContent;
+openPopup(resetPopup(node, conf)); // !!!
+// };
+
+// const openAdd = (node, conf) => {
+// addForm.reset();
+openPopup(resetPopup(node, conf)); // !!!
+// };
 
 // const handleLike = element => {
 //   element.classList.toggle('card__like_active');
@@ -78,11 +75,11 @@ const openAdd = (node, conf) => {
 //   node.remove();
 // };
 
-// const openImg = (cardImage, cardTitle) => {
-//   imgImage.src = cardImage.src;
-//   imgCapt.textContent = imgImage.alt = cardTitle.textContent;
-//   openPopup(img);
-// };
+const openImg = (cardImage, cardTitle) => {
+  imgImage.src = cardImage.src;
+  imgCapt.textContent = imgImage.alt = cardTitle.textContent;
+  openPopup(img);
+};
 
 // const setCardEvtListeners = ({ ...rest }) => {
 //   rest.cloneLike.addEventListener('click', handleLike.bind(this, rest.cloneLike));
@@ -91,56 +88,56 @@ const openAdd = (node, conf) => {
 // };
 
 // const createCard = object => {
-//   const clone = template.cloneNode(true);
-//   const cloneImage = clone.querySelector('.card__image');
-//   const cloneTitle = clone.querySelector('.card__title');
-//   const cloneRemove = clone.querySelector('.card__remove');
-//   const cloneLike = clone.querySelector('.card__like');
-//   cloneImage.src = object.link;
-//   cloneTitle.textContent = cloneImage.alt = object.name;
-//   setCardEvtListeners({
-//     cloneLike,
-//     clone,
-//     cloneImage,
-//     cloneTitle,
-//     cloneRemove,
-//   });
-//   return clone;
+// const clone = template.cloneNode(true);
+// const cloneImage = clone.querySelector('.card__image');
+// const cloneTitle = clone.querySelector('.card__title');
+// const cloneRemove = clone.querySelector('.card__remove');
+// const cloneLike = clone.querySelector('.card__like');
+// cloneImage.src = object.link;
+// cloneTitle.textContent = cloneImage.alt = object.name;
+// setCardEvtListeners({
+//   cloneLike,
+//   clone,
+//   cloneImage,
+//   cloneTitle,
+//   cloneRemove,
+// });
+// return clone;
 // };
 
 // const insertCard = (node, meth) => {
 //   elements[meth](node);
 // };
 
-const handleEditSubmit = e => {
-  e.preventDefault();
-  profName.textContent = nameInput.value;
-  profDesc.textContent = descInput.value;
-  closePopup(edit);
-};
+// const handleEditSubmit = e => {
+//   e.preventDefault();
+//   profName.textContent = nameInput.value;
+//   profDesc.textContent = descInput.value;
+//   closePopup(edit);
+// };
 
-const handleAddSubmit = e => {
-  e.preventDefault();
-  const obj = {
-    name: '',
-    link: '',
-  };
-  obj.name = placeInput.value;
-  obj.link = linkInput.value;
-  insertCard(createCard(obj), 'prepend');
-  closePopup(add);
-};
+// const handleAddSubmit = e => {
+//   e.preventDefault();
+//   const obj = {
+//     name: '',
+//     link: '',
+//   };
+//   obj.name = placeInput.value;
+//   obj.link = linkInput.value;
+//   insertCard(createCard(obj), 'prepend');
+//   closePopup(add);
+// };
 
 enableValidation(conf);
 
-initArr.forEach(object => {
-  insertCard(createCard(object), 'append');
-});
+// initArr.forEach(object => {
+//   insertCard(createCard(object), 'append');
+// });
 
-profEdit.addEventListener('click', openEdit.bind(this, edit, conf));
-profAdd.addEventListener('click', openAdd.bind(this, add, conf));
-editClose.addEventListener('click', closePopup.bind(this, edit));
-addClose.addEventListener('click', closePopup.bind(this, add));
+// profEdit.addEventListener('click', openEdit.bind(this, edit, conf));
+// profAdd.addEventListener('click', openAdd.bind(this, add, conf));
+// editClose.addEventListener('click', closePopup.bind(this, edit));
+// addClose.addEventListener('click', closePopup.bind(this, add));
 imgClose.addEventListener('click', closePopup.bind(this, img));
-editForm.addEventListener('submit', handleEditSubmit);
-addForm.addEventListener('submit', handleAddSubmit);
+// editForm.addEventListener('submit', handleEditSubmit);
+// addForm.addEventListener('submit', handleAddSubmit);
