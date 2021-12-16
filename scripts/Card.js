@@ -1,45 +1,39 @@
 class Card {
-  constructor(object, template) {
-    this._object = object;
-    this._template = template;
+  constructor(obj, temp) {
+    this._obj = obj;
+    this._temp = temp;
   }
 
-  _handleLikeButton = () => {
-    this._cloneLikeButton.classList.toggle('card__like_active');
+  _handLik = () => this._clonLik.classList.toggle('card__like_active');
+
+  _handRem = () => this._clon.remove();
+
+  _handImg = () => window.openImgPop(this._clonImg, this._clonTit); // это костыль (●'◡'●)
+
+  _setEvtList = () => {
+    this._clonLik.addEventListener('click', this._handLik);
+    this._clonRem.addEventListener('click', this._handRem);
+    this._clonImg.addEventListener('click', this._handImg);
   };
 
-  _handleRemoveButton = () => {
-    this._clone.remove();
+  _fillTemp = () => {
+    this._clonImg.src = this._obj.link;
+    this._clonTit.textContent = this._clonImg.alt = this._obj.name;
+    this._setEvtList();
   };
 
-  _handleImage = () => {
-    window.openImagePopup(this._cloneImage, this._cloneTitle);
+  _cloneTemp = () => {
+    this._clon = this._temp.cloneNode(true);
+    this._clonImg = this._clon.querySelector('.card__image');
+    this._clonTit = this._clon.querySelector('.card__title');
+    this._clonRem = this._clon.querySelector('.card__remove');
+    this._clonLik = this._clon.querySelector('.card__like');
+    this._fillTemp();
   };
 
-  _setTemplateEventListeners = () => {
-    this._cloneLikeButton.addEventListener('click', this._handleLikeButton);
-    this._cloneRemoveButton.addEventListener('click', this._handleRemoveButton);
-    this._cloneImage.addEventListener('click', this._handleImage);
-  };
-
-  _fillTemplate = () => {
-    this._cloneImage.src = this._object.link;
-    this._cloneTitle.textContent = this._cloneImage.alt = this._object.name;
-    this._setTemplateEventListeners();
-  };
-
-  _cloneTemplate() {
-    this._clone = this._template.cloneNode(true);
-    this._cloneImage = this._clone.querySelector('.card__image');
-    this._cloneTitle = this._clone.querySelector('.card__title');
-    this._cloneRemoveButton = this._clone.querySelector('.card__remove');
-    this._cloneLikeButton = this._clone.querySelector('.card__like');
-    this._fillTemplate();
-  }
-
-  createCard = (place, method) => {
-    this._cloneTemplate();
-    place[method](this._clone);
+  makeCard = (sect, meth) => {
+    this._cloneTemp();
+    sect[meth](this._clon);
   };
 }
 
