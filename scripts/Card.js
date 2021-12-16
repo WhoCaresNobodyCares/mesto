@@ -12,31 +12,33 @@ class Card {
     this._clone.remove();
   };
 
-  _handleImage = () => {};
+  _handleImage = () => {
+    window.openImagePopup(this._cloneImage, this._cloneTitle);
+  };
 
-  _setCardEventListeners = () => {
+  _setTemplateEventListeners = () => {
     this._cloneLikeButton.addEventListener('click', this._handleLikeButton);
     this._cloneRemoveButton.addEventListener('click', this._handleRemoveButton);
-    // this._cloneImage.addEventListener('click', this._handleImage);
+    this._cloneImage.addEventListener('click', this._handleImage);
   };
 
-  _fillCard = () => {
+  _fillTemplate = () => {
     this._cloneImage.src = this._object.link;
     this._cloneTitle.textContent = this._cloneImage.alt = this._object.name;
-    this._setCardEventListeners();
+    this._setTemplateEventListeners();
   };
 
-  _findVariables() {
+  _cloneTemplate() {
     this._clone = this._template.cloneNode(true);
     this._cloneImage = this._clone.querySelector('.card__image');
     this._cloneTitle = this._clone.querySelector('.card__title');
     this._cloneRemoveButton = this._clone.querySelector('.card__remove');
     this._cloneLikeButton = this._clone.querySelector('.card__like');
-    this._fillCard();
+    this._fillTemplate();
   }
 
   createCard = (place, method) => {
-    this._findVariables();
+    this._cloneTemplate();
     place[method](this._clone);
   };
 }

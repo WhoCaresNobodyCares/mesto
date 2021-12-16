@@ -24,15 +24,15 @@
 // const imgImage = img.querySelector('.popup__image');
 // const imgCapt = img.querySelector('.popup__caption');
 
-const conf = {
-  formClass: '.popup__form',
-  inputClass: '.popup__input',
-  submitClass: '.popup__submit',
-  submitDisabledClass: 'popup__submit_disabled',
-  errorVisibleClass: 'popup__error_visible',
-  inputErrorClass: 'popup__input_error',
-  popupErrorClass: '.popup__error',
-};
+// const conf = {
+//   formClass: '.popup__form',
+//   inputClass: '.popup__input',
+//   submitClass: '.popup__submit',
+//   submitDisabledClass: 'popup__submit_disabled',
+//   errorVisibleClass: 'popup__error_visible',
+//   inputErrorClass: 'popup__input_error',
+//   popupErrorClass: '.popup__error',
+// };
 
 // const closeOverlay = e => {
 //   closePopup(e.target);
@@ -59,12 +59,12 @@ const conf = {
 // const openEdit = (node, conf) => {
 // nameInput.value = profName.textContent;
 // descInput.value = profDesc.textContent;
-openPopup(resetPopup(node, conf)); // !!!
+// openPopup(resetPopup(node, conf));
 // };
 
 // const openAdd = (node, conf) => {
 // addForm.reset();
-openPopup(resetPopup(node, conf)); // !!!
+// openPopup(resetPopup(node, conf));
 // };
 
 // const handleLike = element => {
@@ -75,11 +75,11 @@ openPopup(resetPopup(node, conf)); // !!!
 //   node.remove();
 // };
 
-const openImg = (cardImage, cardTitle) => {
-  imgImage.src = cardImage.src;
-  imgCapt.textContent = imgImage.alt = cardTitle.textContent;
-  openPopup(img);
-};
+// const openImg = (cardImage, cardTitle) => {
+//   imgImage.src = cardImage.src;
+//   imgCapt.textContent = imgImage.alt = cardTitle.textContent;
+//   openPopup(img);
+// };
 
 // const setCardEvtListeners = ({ ...rest }) => {
 //   rest.cloneLike.addEventListener('click', handleLike.bind(this, rest.cloneLike));
@@ -128,7 +128,7 @@ const openImg = (cardImage, cardTitle) => {
 //   closePopup(add);
 // };
 
-enableValidation(conf);
+// enableValidation(conf);
 
 // initArr.forEach(object => {
 //   insertCard(createCard(object), 'append');
@@ -138,6 +138,6 @@ enableValidation(conf);
 // profAdd.addEventListener('click', openAdd.bind(this, add, conf));
 // editClose.addEventListener('click', closePopup.bind(this, edit));
 // addClose.addEventListener('click', closePopup.bind(this, add));
-imgClose.addEventListener('click', closePopup.bind(this, img));
+// imgClose.addEventListener('click', closePopup.bind(this, img));
 // editForm.addEventListener('submit', handleEditSubmit);
 // addForm.addEventListener('submit', handleAddSubmit);
