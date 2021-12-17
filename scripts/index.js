@@ -39,8 +39,8 @@ const conf = {
 const prepCard = obj => new Card(obj, tmp).makeCard();
 const setCard = (nod, meth) => elm[meth](nod);
 
-const closeEsc = e => (e.key == 'Escape' ? closePop(document.querySelector('.popup_opened')) : false);
-const closeOvr = e => (e.target.classList.contains('popup_opened') == true ? closePop(e.target) : false);
+const closeEsc = e => e.key === 'Escape' && closePop(document.querySelector('.popup_opened'));
+const closeOvr = e => e.target.classList.contains('popup_opened') === true && closePop(e.target);
 
 const addPopEvtList = nod => {
   nod.addEventListener('click', closeOvr);
