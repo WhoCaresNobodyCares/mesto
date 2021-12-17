@@ -1,14 +1,14 @@
-class Card {
-  constructor(obj, temp) {
+export class Card {
+  constructor(obj, tmp) {
     this._obj = obj;
-    this._temp = temp;
+    this._tmp = tmp;
   }
 
   _handLik = () => this._clonLik.classList.toggle('card__like_active');
 
   _handRem = () => this._clon.remove();
 
-  _handImg = () => window.openImgPop(this._clonImg, this._clonTit); // это костыль (●'◡'●)
+  _handImg = () => window.openImgPop(this._clonImg, this._clonTit);
 
   _setEvtList = () => {
     this._clonLik.addEventListener('click', this._handLik);
@@ -16,25 +16,25 @@ class Card {
     this._clonImg.addEventListener('click', this._handImg);
   };
 
-  _fillTemp = () => {
+  _fillClonElms = () => {
     this._clonImg.src = this._obj.link;
     this._clonTit.textContent = this._clonImg.alt = this._obj.name;
-    this._setEvtList();
   };
 
-  _cloneTemp = () => {
-    this._clon = this._temp.cloneNode(true);
+  _findClonElms = () => {
     this._clonImg = this._clon.querySelector('.card__image');
     this._clonTit = this._clon.querySelector('.card__title');
     this._clonRem = this._clon.querySelector('.card__remove');
     this._clonLik = this._clon.querySelector('.card__like');
-    this._fillTemp();
   };
 
-  makeCard = (sect, meth) => {
-    this._cloneTemp();
-    sect[meth](this._clon);
+  _clonTmp = () => (this._clon = this._tmp.cloneNode(true));
+
+  makeCard = () => {
+    this._clonTmp();
+    this._findClonElms();
+    this._fillClonElms();
+    this._setEvtList();
+    return this._clon;
   };
 }
-
-export { Card };

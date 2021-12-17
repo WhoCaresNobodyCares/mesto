@@ -1,4 +1,4 @@
-class FormVal {
+export class FormVal {
   constructor(frm, conf) {
     this._frm = frm;
     this._inp = conf.inp;
@@ -24,13 +24,7 @@ class FormVal {
     inp.classList.add(this._inpErr);
   };
 
-  _checkInpVal = inp => {
-    if (inp.validity.valid) {
-      this._hideErr(inp);
-    } else {
-      this._showErr(inp);
-    }
-  };
+  _checkInpVal = inp => (inp.validity.valid == true ? this._hideErr(inp) : this._showErr(inp));
 
   _toggleSub = () => {
     this._isVal = this._frm.checkValidity();
@@ -49,7 +43,13 @@ class FormVal {
     });
   };
 
+  _resetInps = () => this._frmInps.forEach(inp => this._hideErr(inp));
+
+  resetVal = () => {
+    this._frm.reset();
+    this._toggleSub();
+    this._resetInps();
+  };
+
   enableVal = () => this._setFrmEvtList();
 }
-
-export { FormVal };
