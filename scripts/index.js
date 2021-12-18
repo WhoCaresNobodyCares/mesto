@@ -93,8 +93,7 @@ addPopupFormValidator.enableValidation();
 
 const prepareEditPopup = () => {
   editPopupFormValidator.resetValidation();
-  nameInput.value = profileName.textContent;
-  descriptionInput.value = profileDescription.textContent;
+  [nameInput.value, descriptionInput.value] = [profileName.textContent, profileDescription.textContent];
 };
 
 const openEditPopup = node => {
@@ -113,10 +112,8 @@ const openAddPopup = node => {
 
 // ---
 
-const prepareImagePopup = (image, title) => {
-  imagePopupImage.src = image.src;
-  imagePopupCaption.textContent = imagePopupImage.alt = title.textContent;
-};
+const prepareImagePopup = (image, title) =>
+  ([imagePopupImage.src, imagePopupCaption.textContent, imagePopupImage.alt] = [image.src, title.textContent, title.textContent]);
 
 window.openImagePopup = (image, title) => {
   prepareImagePopup(image, title);
@@ -125,10 +122,8 @@ window.openImagePopup = (image, title) => {
 
 // ---
 
-const insertProfileInformation = () => {
-  profileName.textContent = nameInput.value;
-  profileDescription.textContent = descriptionInput.value;
-};
+const insertProfileInformation = () =>
+  ([profileName.textContent, profileDescription.textContent] = [nameInput.value, descriptionInput.value]);
 
 const handleEditPopupSubmit = event => {
   event.preventDefault();

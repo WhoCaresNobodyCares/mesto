@@ -9,8 +9,7 @@ export class FormValidator {
   }
 
   _toggleSubmitButton = () => {
-    this._validationState = this._form.checkValidity();
-    this._submitButton = this._form.querySelector(this._popupSubmit);
+    [this._validationState, this._submitButton] = [this._form.checkValidity(), this._form.querySelector(this._popupSubmit)];
     this._submitButton.disabled = !this._validationState;
     this._submitButton.classList.toggle(this._popupSubmitDisabled, !this._validationState);
   };

@@ -22,10 +22,8 @@ export class Card {
   };
 
   _findCloneElements = () => {
-    this._cloneImage = this._clone.querySelector('.card__image');
-    this._cloneTitle = this._clone.querySelector('.card__title');
-    this._cloneRemoveButton = this._clone.querySelector('.card__remove');
-    this._cloneLike = this._clone.querySelector('.card__like');
+    [this._cloneImage, this._cloneTitle] = [this._clone.querySelector('.card__image'), this._clone.querySelector('.card__title')];
+    [this._cloneRemoveButton, this._cloneLike] = [this._clone.querySelector('.card__remove'), this._clone.querySelector('.card__like')];
   };
 
   _cloneTemplate = () => (this._clone = this._template.cloneNode(true));
