@@ -1,40 +1,40 @@
 export class Card {
-  constructor(obj, tmp) {
-    this._obj = obj;
-    this._tmp = tmp;
+  constructor(object, template) {
+    this._object = object;
+    this._template = template;
   }
 
-  _handLik = () => this._clonLik.classList.toggle('card__like_active');
+  _handleLike = () => this._cloneLike.classList.toggle('card__like_active');
 
-  _handRem = () => this._clon.remove();
+  _handleRemoveButton = () => this._clone.remove();
 
-  _handImg = () => window.openImgPop(this._clonImg, this._clonTit);
+  _handleImage = () => window.openImagePopup(this._cloneImage, this._cloneTitle);
 
-  _setEvtList = () => {
-    this._clonLik.addEventListener('click', this._handLik);
-    this._clonRem.addEventListener('click', this._handRem);
-    this._clonImg.addEventListener('click', this._handImg);
+  _setEventListeners = () => {
+    this._cloneLike.addEventListener('click', this._handleLike);
+    this._cloneRemoveButton.addEventListener('click', this._handleRemoveButton);
+    this._cloneImage.addEventListener('click', this._handleImage);
   };
 
-  _fillClonElms = () => {
-    this._clonImg.src = this._obj.link;
-    this._clonTit.textContent = this._clonImg.alt = this._obj.name;
+  _fillCloneElements = () => {
+    this._cloneImage.src = this._object.link;
+    this._cloneTitle.textContent = this._cloneImage.alt = this._object.name;
   };
 
-  _findClonElms = () => {
-    this._clonImg = this._clon.querySelector('.card__image');
-    this._clonTit = this._clon.querySelector('.card__title');
-    this._clonRem = this._clon.querySelector('.card__remove');
-    this._clonLik = this._clon.querySelector('.card__like');
+  _findCloneElements = () => {
+    this._cloneImage = this._clone.querySelector('.card__image');
+    this._cloneTitle = this._clone.querySelector('.card__title');
+    this._cloneRemoveButton = this._clone.querySelector('.card__remove');
+    this._cloneLike = this._clone.querySelector('.card__like');
   };
 
-  _clonTmp = () => (this._clon = this._tmp.cloneNode(true));
+  _cloneTemplate = () => (this._clone = this._template.cloneNode(true));
 
-  makeCard = () => {
-    this._clonTmp();
-    this._findClonElms();
-    this._fillClonElms();
-    this._setEvtList();
-    return this._clon;
+  createCard = () => {
+    this._cloneTemplate();
+    this._findCloneElements();
+    this._fillCloneElements();
+    this._setEventListeners();
+    return this._clone;
   };
 }

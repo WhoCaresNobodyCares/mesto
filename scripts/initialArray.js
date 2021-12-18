@@ -1,4 +1,4 @@
-export const initArr = [
+export const initialArray = [
   {
     name: 'Первый город',
     link: 'https://images.unsplash.com/photo-1542902093-d55926049754?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
