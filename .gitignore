@@ -1,4 +1,10 @@
-.vscode/launch.json
-node_modules
-dist
-OLD_SCRIPTS
+# ignore all files starting with . or ~
+.*
+
+# ignore node/grunt dependency directories
+node_modules/
+
+# track these files, if they exist
+!.gitignore
+!.editorconfig
+!.nojekyll
