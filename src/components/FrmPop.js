@@ -14,40 +14,36 @@ export default class FrmPop extends Pop {
 
   // ---
 
-  _getEdtVal = () => ({
-    name: this._namInp.value,
-    desc: this._dscInp.value,
-  });
-
-  _getAddVal = () => ({
-    name: this._plcInp.value,
-    link: this._lnkInp.value,
-  });
+  _getInpVal = () =>
+    this._frm.name === 'editForm'
+      ? {
+          name: this._namInp.value,
+          desc: this._dscInp.value,
+        }
+      : {
+          name: this._plcInp.value,
+          link: this._lnkInp.value,
+        };
 
   // ---
 
-  _getInpVal = () =>
-    this._frm.name === 'editForm'
-      ? this._getEdtVal()
-      : this._getAddVal();
+  _handSub = e => {
+    this._submit(e, this._getInpVal());
+    this.cls();
+  };
 
   // ---
 
   _addEvtLst = () => {
-    this._frm.addEventListener('submit', e => {
-      this._submit(e, this._getInpVal());
-      this.cls();
-    });
+    this._frm.addEventListener('submit', this._handSub);
     this._pop.addEventListener('click', this._clsOnOvr);
     this._clsBtn.addEventListener('click', this._clsOnBtn);
     document.addEventListener('keydown', this._clsOnEsc);
   };
 
+  // ---
   _remEvtLst = () => {
-    this._frm.removeEventListener('submit', e => {
-      this._submit(e, this._getInpVal());
-      this.cls();
-    });
+    this._frm.addEventListener('submit', this._handSub);
     this._pop.removeEventListener('click', this._clsOnOvr);
     this._clsBtn.removeEventListener('click', this._clsOnBtn);
     document.removeEventListener('keydown', this._clsOnEsc);
