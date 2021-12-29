@@ -2,7 +2,8 @@
 .*
 
 # ignore node/grunt dependency directories
-node_modules/
+node_modules
+dist
 
 # track these files, if they exist
 !.gitignore
