@@ -2,7 +2,9 @@ export default class Card {
   constructor(conf, { obj, imgHand }) {
     this._obj = obj;
     this._tmp = document.querySelector(`#${conf.tmpId}`);
-    this._tmpCnt = this._tmp.content.querySelector(`.${conf.crdCls}`);
+    this._tmpCnt = this._tmp.content.querySelector(
+      `.${conf.crdCls}`
+    );
     this._imgCls = conf.imgCls;
     this._titCls = conf.titCls;
     this._remCls = conf.remCls;
@@ -18,7 +20,8 @@ export default class Card {
 
   _handRem = () => this._clon.remove();
 
-  _handImg = () => this._imgHand(this._clonImg, this._clonTit);
+  _handImg = () =>
+    this._imgHand(this._clonImg, this._clonTit);
 
   // ---
 
@@ -32,21 +35,31 @@ export default class Card {
 
   _fillClonElm = () => {
     this._clonImg.src = this._obj.link;
-    this._clonTit.textContent = this._clonImg.alt = this._obj.name;
+    this._clonTit.textContent = this._clonImg.alt =
+      this._obj.name;
   };
 
   // ---
 
   _findClonElm = () => {
-    this._clonImg = this._clon.querySelector(`.${this._imgCls}`);
-    this._clonTit = this._clon.querySelector(`.${this._titCls}`);
-    this._clonRem = this._clon.querySelector(`.${this._remCls}`);
-    this._clonLik = this._clon.querySelector(`.${this._likCls}`);
+    this._clonImg = this._clon.querySelector(
+      `.${this._imgCls}`
+    );
+    this._clonTit = this._clon.querySelector(
+      `.${this._titCls}`
+    );
+    this._clonRem = this._clon.querySelector(
+      `.${this._remCls}`
+    );
+    this._clonLik = this._clon.querySelector(
+      `.${this._likCls}`
+    );
   };
 
   // ---
 
-  _clonTmp = () => (this._clon = this._tmpCnt.cloneNode(true));
+  _clonTmp = () =>
+    (this._clon = this._tmpCnt.cloneNode(true));
 
   // ---
 

@@ -8,7 +8,9 @@ export default class Sect {
   // ---
 
   rndrIni = () =>
-    this._itms.forEach(obj => this._rndr(this._cont, 'append', obj));
+    this._itms.forEach((obj) =>
+      this._rndr(this._cont, 'append', obj)
+    );
 
-  rndrNew = obj => this._rndr(this._cont, 'prepend', obj);
+  rndrNew = (obj) => this._rndr(this._cont, 'prepend', obj);
 }

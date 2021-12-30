@@ -2,8 +2,12 @@ import Pop from './Pop.js';
 export default class ImgPop extends Pop {
   constructor({ popId, clsBtn }, conf) {
     super({ popId, clsBtn });
-    this._img = this._pop.querySelector(`.${conf.imgPopCls}`);
-    this._cpt = this._pop.querySelector(`.${conf.cptPopCls}`);
+    this._img = this._pop.querySelector(
+      `.${conf.imgPopCls}`
+    );
+    this._cpt = this._pop.querySelector(
+      `.${conf.cptPopCls}`
+    );
   }
 
   // ---

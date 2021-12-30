@@ -12,5 +12,8 @@ export default class UsrInf {
   });
 
   set = (nam, dsc) =>
-    ([this._nam.textContent, this._dsc.textContent] = [nam, dsc]);
+    ([this._nam.textContent, this._dsc.textContent] = [
+      nam,
+      dsc,
+    ]);
 }

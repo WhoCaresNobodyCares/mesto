@@ -1,12 +1,23 @@
 import Pop from './Pop.js';
 export default class FrmPop extends Pop {
-  constructor(conf, { popId, clsBtn, form, submit, reset, prep }) {
+  constructor(
+    conf,
+    { popId, clsBtn, form, submit, reset, prep }
+  ) {
     super({ popId, clsBtn });
     this._frm = form;
-    this._namInp = this._frm.querySelector(`#${conf.namInpId}`);
-    this._dscInp = this._frm.querySelector(`#${conf.dscInpId}`);
-    this._plcInp = this._frm.querySelector(`#${conf.plcInpId}`);
-    this._lnkInp = this._frm.querySelector(`#${conf.lnkInpId}`);
+    this._namInp = this._frm.querySelector(
+      `#${conf.namInpId}`
+    );
+    this._dscInp = this._frm.querySelector(
+      `#${conf.dscInpId}`
+    );
+    this._plcInp = this._frm.querySelector(
+      `#${conf.plcInpId}`
+    );
+    this._lnkInp = this._frm.querySelector(
+      `#${conf.lnkInpId}`
+    );
     this._submit = submit;
     this._reset = reset;
     this._prep = prep;
@@ -27,7 +38,7 @@ export default class FrmPop extends Pop {
 
   // ---
 
-  _handSub = e => {
+  _handSub = (e) => {
     this._submit(e, this._getInpVal());
     this.cls();
   };
@@ -45,7 +56,10 @@ export default class FrmPop extends Pop {
   _remEvtLst = () => {
     this._frm.addEventListener('submit', this._handSub);
     this._pop.removeEventListener('click', this._clsOnOvr);
-    this._clsBtn.removeEventListener('click', this._clsOnBtn);
+    this._clsBtn.removeEventListener(
+      'click',
+      this._clsOnBtn
+    );
     document.removeEventListener('keydown', this._clsOnEsc);
   };
 
@@ -60,7 +74,8 @@ export default class FrmPop extends Pop {
 
   opn = () => {
     this._reset();
-    this._pop.id === 'profileEditPopup' && this._prepEdtPop();
+    this._pop.id === 'profileEditPopup' &&
+      this._prepEdtPop();
     this._addEvtLst();
     this._pop.classList.add('popup_opened');
   };

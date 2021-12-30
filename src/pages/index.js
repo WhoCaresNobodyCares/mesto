@@ -1,3 +1,7 @@
+import './index.css';
+
+// ---
+
 import {
   iniArr,
   conf,
@@ -21,8 +25,14 @@ import Card from '../components/Card.js';
 // ---
 
 const [usrInf, imgPop] = [
-  new UsrInf({ namCls: conf.prfNamCls, dscCls: conf.prfDscCls }),
-  new ImgPop({ popId: conf.imgPopId, clsBtn: conf.clsBtnCls }, conf),
+  new UsrInf({
+    namCls: conf.prfNamCls,
+    dscCls: conf.prfDscCls,
+  }),
+  new ImgPop(
+    { popId: conf.imgPopId, clsBtn: conf.clsBtnCls },
+    conf
+  ),
 ];
 
 const [edtPopVal, addPopVal] = [

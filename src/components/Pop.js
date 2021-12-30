@@ -6,13 +6,13 @@ export default class Pop {
 
   // ---
 
-  _clsOnOvr = e =>
+  _clsOnOvr = (e) =>
     e.target.classList.contains('popup_opened') === true &&
     this.cls();
 
   _clsOnBtn = () => this.cls();
 
-  _clsOnEsc = e => e.key === 'Escape' && this.cls();
+  _clsOnEsc = (e) => e.key === 'Escape' && this.cls();
 
   // ---
 
@@ -24,7 +24,10 @@ export default class Pop {
 
   _remEvtLst = () => {
     this._pop.removeEventListener('click', this._clsOnOvr);
-    this._clsBtn.removeEventListener('click', this._clsOnBtn);
+    this._clsBtn.removeEventListener(
+      'click',
+      this._clsOnBtn
+    );
     document.removeEventListener('keydown', this._clsOnEsc);
   };
 
