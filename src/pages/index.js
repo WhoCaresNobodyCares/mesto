@@ -3,87 +3,113 @@ import './index.css';
 // ---
 
 import {
-  iniArr,
-  conf,
-  prfAddBtn,
-  prfEdtBtn,
-  cardConf,
-  frmValConf,
-  edtPopFrm,
-  addPopFrm,
-} from '../utils/vars.js';
+  initialCardsArray,
+  sectionConfig,
+  cardConfig,
+  userInfoConfig,
+  popupConfig,
+  formPopupConfig,
+  imagePopupConfig,
+  profileEditButton,
+  profileAddButton,
+  formValidatorConfig,
+  profileName,
+  profileDescription,
+} from '../utils/variables.js';
 
 // ---
 
-import UsrInf from '../components/UsrInf.js';
-import ImgPop from '../components/ImgPop.js';
-import FrmPop from '../components/FrmPop.js';
-import FrmVal from '../components/FrmVal.js';
-import Sect from '../components/Sect.js';
+import UserInfo from '../components/UserInfo.js';
 import Card from '../components/Card.js';
+import Section from '../components/Section.js';
+import ImagePopup from '../components/ImagePopup.js';
+import FormPopup from '../components/FormPopup.js';
+import FormValidator from '../components/FormValidator.js';
 
 // ---
 
-const [usrInf, imgPop] = [
-  new UsrInf({
-    namCls: conf.prfNamCls,
-    dscCls: conf.prfDscCls,
-  }),
-  new ImgPop(
-    { popId: conf.imgPopId, clsBtn: conf.clsBtnCls },
-    conf
-  ),
-];
+const userInfo = new UserInfo(userInfoConfig);
 
-const [edtPopVal, addPopVal] = [
-  new FrmVal(edtPopFrm, frmValConf),
-  new FrmVal(addPopFrm, frmValConf),
-];
+// ---
 
-const elem = new Sect(conf.elmSctId, {
-  itms: iniArr,
-  rndr: (cont, mth, obj) => {
-    cont[mth](
-      new Card(cardConf, {
-        obj: obj,
-        imgHand: (img, tit) => imgPop.opn(img, tit),
-      }).makeCard()
-    );
-  },
+const imagePopup = new ImagePopup(
+  popupConfig.imagePopupId,
+  popupConfig.popupCloseButtonClass,
+  popupConfig.popupOpenedClass,
+  imagePopupConfig.imageClass,
+  imagePopupConfig.captionClass
+);
+
+imagePopup.setEventListeners();
+
+function imagePopupOpener(image, title) {
+  imagePopup.open(image, title);
+}
+
+function initialRenderer(section, element) {
+  const card = new Card(element, imagePopupOpener, cardConfig).makeCard();
+  section.append(card);
+}
+
+function newRenderer(section, element) {
+  const card = new Card(element, imagePopupOpener, cardConfig).makeCard();
+  section.prepend(card);
+}
+
+const elementsSection = new Section(initialRenderer, newRenderer, sectionConfig.containerSelectorId);
+
+elementsSection.renderArray(initialCardsArray);
+
+function editPopupFormSubmitHandler(submitValues) {
+  userInfo.setInfo(submitValues.nameInput, submitValues.descriptionInput);
+}
+
+function addPopupFormSubmitHandler(submitValues) {
+  elementsSection.renderCard({ name: submitValues.placeInput, link: submitValues.linkInput });
+}
+
+function formPopupSubmitter(event, submitValues) {
+  event.preventDefault();
+  event.target.id === 'editPopupForm'
+    ? editPopupFormSubmitHandler(submitValues)
+    : addPopupFormSubmitHandler(submitValues);
+}
+
+const editPopup = new FormPopup(
+  popupConfig.editPopupId,
+  popupConfig.popupCloseButtonClass,
+  popupConfig.popupOpenedClass,
+  formPopupConfig.editPopupFormId,
+  formPopupConfig.formInputClass,
+  formPopupSubmitter
+);
+
+const addPopup = new FormPopup(
+  popupConfig.addPopupId,
+  popupConfig.popupCloseButtonClass,
+  popupConfig.popupOpenedClass,
+  formPopupConfig.addPopupFormId,
+  formPopupConfig.formInputClass,
+  formPopupSubmitter
+);
+
+const editFormValidator = new FormValidator(formValidatorConfig.editFormId, formValidatorConfig);
+const addFormValidator = new FormValidator(formValidatorConfig.addFormId, formValidatorConfig);
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
+
+editPopup.setEventListeners();
+addPopup.setEventListeners();
+
+profileEditButton.addEventListener('click', () => {
+  editFormValidator.resetValidation();
+  editPopup.setInputValues({ nameInput: profileName.textContent, descriptionInput: profileDescription.textContent });
+  editPopup.open();
 });
 
-const [edtPop, addPop] = [
-  new FrmPop(conf, {
-    popId: conf.edtPopId,
-    clsBtn: conf.clsBtnCls,
-    form: edtPopFrm,
-    submit: (e, obj) => {
-      e.preventDefault();
-      usrInf.set(obj.name, obj.desc);
-    },
-    reset: () => edtPopVal.resVal(),
-    prep: () => usrInf.get(),
-  }),
-  new FrmPop(conf, {
-    popId: conf.addPopId,
-    clsBtn: conf.clsBtnCls,
-    form: addPopFrm,
-    submit: (e, obj) => {
-      e.preventDefault();
-      elem.rndrNew(obj);
-    },
-    reset: () => addPopVal.resVal(),
-    prep: () => {},
-  }),
-];
-
-// ---
-
-edtPopVal.enableVal();
-addPopVal.enableVal();
-elem.rndrIni();
-
-// ---
-
-prfEdtBtn.addEventListener('click', () => edtPop.opn());
-prfAddBtn.addEventListener('click', () => addPop.opn());
+profileAddButton.addEventListener('click', () => {
+  addFormValidator.resetValidation();
+  addPopup.setInputValues({ placeInput: '', linkInput: '' });
+  addPopup.open();
+});

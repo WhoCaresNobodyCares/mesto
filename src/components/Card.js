@@ -1,73 +1,48 @@
 export default class Card {
-  constructor(conf, { obj, imgHand }) {
-    this._obj = obj;
-    this._tmp = document.querySelector(`#${conf.tmpId}`);
-    this._tmpCnt = this._tmp.content.querySelector(
-      `.${conf.crdCls}`
-    );
-    this._imgCls = conf.imgCls;
-    this._titCls = conf.titCls;
-    this._remCls = conf.remCls;
-    this._likCls = conf.likCls;
-    this._likActCls = conf.likActCls;
-    this._imgHand = imgHand;
+  constructor(element, opener, config) {
+    this._element = element;
+    this._opener = opener;
+    this._config = config;
+    this._template = document.querySelector(`#${this._config.templateId}`);
+    this._templateContent = this._template.content.querySelector(`.${this._config.cardClass}`);
   }
 
-  // ---
-
-  _handLik = () =>
-    this._clonLik.classList.toggle(`${this._likActCls}`);
-
-  _handRem = () => this._clon.remove();
-
-  _handImg = () =>
-    this._imgHand(this._clonImg, this._clonTit);
-
-  // ---
-
-  _setEvtLst = () => {
-    this._clonLik.addEventListener('click', this._handLik);
-    this._clonRem.addEventListener('click', this._handRem);
-    this._clonImg.addEventListener('click', this._handImg);
+  _handleLikeButtonClick = () => {
+    this._cloneLikeButton.classList.toggle(`${this._config.templateLikeButtonActiveClass}`);
   };
 
-  // ---
-
-  _fillClonElm = () => {
-    this._clonImg.src = this._obj.link;
-    this._clonTit.textContent = this._clonImg.alt =
-      this._obj.name;
+  _handleRemoveButtonClick = () => {
+    this._clone.remove();
+    this._clone = null;
   };
 
-  // ---
+  _setEventListeners() {
+    this._cloneLikeButton.addEventListener('click', this._handleLikeButtonClick);
+    this._cloneRemoveButton.addEventListener('click', this._handleRemoveButtonClick);
+    this._cloneImage.addEventListener('click', this._opener.bind(this, this._cloneImage, this._cloneTitle));
+  }
 
-  _findClonElm = () => {
-    this._clonImg = this._clon.querySelector(
-      `.${this._imgCls}`
-    );
-    this._clonTit = this._clon.querySelector(
-      `.${this._titCls}`
-    );
-    this._clonRem = this._clon.querySelector(
-      `.${this._remCls}`
-    );
-    this._clonLik = this._clon.querySelector(
-      `.${this._likCls}`
-    );
-  };
+  _fillCloneElements() {
+    this._cloneImage.src = this._element.link;
+    this._cloneTitle.textContent = this._cloneImage.alt = this._element.name;
+  }
 
-  // ---
+  _findCloneElements() {
+    this._cloneImage = this._clone.querySelector(`.${this._config.templateImageClass}`);
+    this._cloneTitle = this._clone.querySelector(`.${this._config.templateTitleClass}`);
+    this._cloneRemoveButton = this._clone.querySelector(`.${this._config.templateRemoveButtonClass}`);
+    this._cloneLikeButton = this._clone.querySelector(`.${this._config.templateLikeButtonClass}`);
+  }
 
-  _clonTmp = () =>
-    (this._clon = this._tmpCnt.cloneNode(true));
+  _cloneTemplate() {
+    this._clone = this._templateContent.cloneNode(true);
+  }
 
-  // ---
-
-  makeCard = () => {
-    this._clonTmp();
-    this._findClonElm();
-    this._fillClonElm();
-    this._setEvtLst();
-    return this._clon;
-  };
+  makeCard() {
+    this._cloneTemplate();
+    this._findCloneElements();
+    this._fillCloneElements();
+    this._setEventListeners();
+    return this._clone;
+  }
 }
