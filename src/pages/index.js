@@ -4,26 +4,26 @@ import './index.css';
 
 import {
   initialCardsArray,
-  sectionConfig,
   cardConfig,
-  userInfoConfig,
   popupConfig,
-  formPopupConfig,
   imagePopupConfig,
-  profileEditButton,
-  profileAddButton,
+  formPopupConfig,
+  userInfoConfig,
+  sectionConfig,
   formValidatorConfig,
   profileName,
   profileDescription,
+  profileEditButton,
+  profileAddButton,
 } from '../utils/variables.js';
 
 // ---
 
-import UserInfo from '../components/UserInfo.js';
 import Card from '../components/Card.js';
-import Section from '../components/Section.js';
 import ImagePopup from '../components/ImagePopup.js';
 import FormPopup from '../components/FormPopup.js';
+import UserInfo from '../components/UserInfo.js';
+import Section from '../components/Section.js';
 import FormValidator from '../components/FormValidator.js';
 
 // ---
@@ -40,58 +40,61 @@ const imagePopup = new ImagePopup(
   imagePopupConfig.captionClass
 );
 
-imagePopup.setEventListeners();
+// ---
 
-function imagePopupOpener(image, title) {
-  imagePopup.open(image, title);
-}
-
-function initialRenderer(section, element) {
-  const card = new Card(element, imagePopupOpener, cardConfig).makeCard();
-  section.append(card);
-}
-
-function newRenderer(section, element) {
-  const card = new Card(element, imagePopupOpener, cardConfig).makeCard();
-  section.prepend(card);
-}
-
-const elementsSection = new Section(initialRenderer, newRenderer, sectionConfig.containerSelectorId);
-
-elementsSection.renderArray(initialCardsArray);
-
-function editPopupFormSubmitHandler(submitValues) {
+function handleEditorPopupSubmit(submitValues) {
   userInfo.setInfo(submitValues.nameInput, submitValues.descriptionInput);
 }
 
-function addPopupFormSubmitHandler(submitValues) {
+function handleAdditionPopupSubmit(submitValues) {
   elementsSection.renderCard({ name: submitValues.placeInput, link: submitValues.linkInput });
 }
 
-function formPopupSubmitter(event, submitValues) {
-  event.preventDefault();
-  event.target.id === 'editPopupForm'
-    ? editPopupFormSubmitHandler(submitValues)
-    : addPopupFormSubmitHandler(submitValues);
-}
-
-const editPopup = new FormPopup(
+const editorPopup = new FormPopup(
   popupConfig.editPopupId,
   popupConfig.popupCloseButtonClass,
   popupConfig.popupOpenedClass,
   formPopupConfig.editPopupFormId,
   formPopupConfig.formInputClass,
-  formPopupSubmitter
+  handleEditorPopupSubmit
 );
 
-const addPopup = new FormPopup(
+const additionPopup = new FormPopup(
   popupConfig.addPopupId,
   popupConfig.popupCloseButtonClass,
   popupConfig.popupOpenedClass,
   formPopupConfig.addPopupFormId,
   formPopupConfig.formInputClass,
-  formPopupSubmitter
+  handleAdditionPopupSubmit
 );
+
+imagePopup.setEventListeners();
+editorPopup.setEventListeners();
+additionPopup.setEventListeners();
+
+// ---
+
+function openPopupImage(image, title) {
+  imagePopup.open(image, title);
+}
+
+function createNewCard(element) {
+  return new Card(element, openPopupImage, cardConfig).makeCard();
+}
+
+function renderInitial(element) {
+  elementsSection.appendCard(createNewCard(element));
+}
+
+function renderNew(element) {
+  elementsSection.prependCard(createNewCard(element));
+}
+
+const elementsSection = new Section(renderInitial, renderNew, sectionConfig.containerSelectorId);
+
+elementsSection.renderArray(initialCardsArray);
+
+// ---
 
 const editFormValidator = new FormValidator(formValidatorConfig.editFormId, formValidatorConfig);
 const addFormValidator = new FormValidator(formValidatorConfig.addFormId, formValidatorConfig);
@@ -99,17 +102,15 @@ const addFormValidator = new FormValidator(formValidatorConfig.addFormId, formVa
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
-editPopup.setEventListeners();
-addPopup.setEventListeners();
+// ---
 
 profileEditButton.addEventListener('click', () => {
   editFormValidator.resetValidation();
-  editPopup.setInputValues({ nameInput: profileName.textContent, descriptionInput: profileDescription.textContent });
-  editPopup.open();
+  editorPopup.setInputValues({ nameInput: profileName.textContent, descriptionInput: profileDescription.textContent });
+  editorPopup.open();
 });
 
 profileAddButton.addEventListener('click', () => {
   addFormValidator.resetValidation();
-  addPopup.setInputValues({ placeInput: '', linkInput: '' });
-  addPopup.open();
+  additionPopup.open();
 });

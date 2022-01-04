@@ -1,17 +1,25 @@
 export default class Section {
-  constructor(initialRenderer, newRenderer, containerSelectorId) {
-    this._initialRenderer = initialRenderer;
-    this._newRenderer = newRenderer;
+  constructor(renderInitial, renderNew, containerSelectorId) {
+    this._renderInitial = renderInitial;
+    this._renderNew = renderNew;
     this._container = document.querySelector(`#${containerSelectorId}`);
+  }
+
+  appendCard(element) {
+    this._container.append(element);
+  }
+
+  prependCard(element) {
+    this._container.prepend(element);
   }
 
   renderArray(array) {
     array.forEach(element => {
-      this._initialRenderer(this._container, element);
+      this._renderInitial(element);
     });
   }
 
   renderCard(element) {
-    this._newRenderer(this._container, element);
+    this._renderNew(element);
   }
 }

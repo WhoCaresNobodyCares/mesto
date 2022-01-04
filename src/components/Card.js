@@ -1,7 +1,7 @@
 export default class Card {
-  constructor(element, opener, config) {
+  constructor(element, openPopupImage, config) {
     this._element = element;
-    this._opener = opener;
+    this._openPopupImage = openPopupImage;
     this._config = config;
     this._template = document.querySelector(`#${this._config.templateId}`);
     this._templateContent = this._template.content.querySelector(`.${this._config.cardClass}`);
@@ -19,7 +19,7 @@ export default class Card {
   _setEventListeners() {
     this._cloneLikeButton.addEventListener('click', this._handleLikeButtonClick);
     this._cloneRemoveButton.addEventListener('click', this._handleRemoveButtonClick);
-    this._cloneImage.addEventListener('click', this._opener.bind(this, this._cloneImage, this._cloneTitle));
+    this._cloneImage.addEventListener('click', this._openPopupImage.bind(this, this._cloneImage, this._cloneTitle));
   }
 
   _fillCloneElements() {

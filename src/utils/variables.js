@@ -25,9 +25,16 @@ export const initialCardsArray = [
   },
 ];
 
-export const userInfoConfig = {
-  nameClass: 'profile__username',
-  descriptionClass: 'profile__description',
+// ---
+
+export const cardConfig = {
+  templateId: 'cardTemplate',
+  cardClass: 'card',
+  templateImageClass: 'card__image',
+  templateTitleClass: 'card__title',
+  templateRemoveButtonClass: 'card__remove',
+  templateLikeButtonClass: 'card__like',
+  templateLikeButtonActiveClass: 'card__like_active',
 };
 
 export const popupConfig = {
@@ -49,14 +56,9 @@ export const formPopupConfig = {
   formInputClass: 'popup__input',
 };
 
-export const cardConfig = {
-  templateId: 'cardTemplate',
-  cardClass: 'card',
-  templateImageClass: 'card__image',
-  templateTitleClass: 'card__title',
-  templateRemoveButtonClass: 'card__remove',
-  templateLikeButtonClass: 'card__like',
-  templateLikeButtonActiveClass: 'card__like_active',
+export const userInfoConfig = {
+  nameClass: 'profile__username',
+  descriptionClass: 'profile__description',
 };
 
 export const sectionConfig = {
@@ -73,8 +75,9 @@ export const formValidatorConfig = {
   submitButtonDisabledClass: 'popup__submit_disabled',
 };
 
-export const profileEditButton = document.querySelector('.profile__edit');
-export const profileAddButton = document.querySelector('.profile__add');
+// ---
 
 export const profileName = document.querySelector('.profile__username');
 export const profileDescription = document.querySelector('.profile__description');
+export const profileEditButton = document.querySelector('.profile__edit');
+export const profileAddButton = document.querySelector('.profile__add');

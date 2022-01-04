@@ -1,29 +1,35 @@
 import Popup from './Popup.js';
 export default class FormPopup extends Popup {
-  constructor(popupId, popupCloseButtonClass, popupOpenedClass, formId, formInputClass, submitter) {
+  constructor(popupId, popupCloseButtonClass, popupOpenedClass, formId, formInputClass, handlePopupSubmit) {
     super(popupId, popupCloseButtonClass, popupOpenedClass);
     this._form = this._popup.querySelector(`#${formId}`);
     this._inputList = this._form.querySelectorAll(`.${formInputClass}`);
-    this._submitter = submitter;
+    this._handlePopupSubmit = handlePopupSubmit;
   }
 
   _getInputValues() {
     this._formValues = {};
-    this._inputList.forEach(input => (this._formValues[input.name] = input.value));
+    this._inputList.forEach(inputField => (this._formValues[inputField.name] = inputField.value));
     return this._formValues;
   }
 
   setInputValues(data) {
-    this._inputList.forEach(input => {
-      data.hasOwnProperty(input.name) && (input.value = data[input.name]);
+    this._inputList.forEach(inputField => {
+      data.hasOwnProperty(inputField.name) && (inputField.value = data[inputField.name]);
     });
   }
 
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener('submit', event => {
-      this._submitter(event, this._getInputValues());
+      event.preventDefault();
+      this._handlePopupSubmit(this._getInputValues());
       this.close();
     });
+  }
+
+  close() {
+    this._form.reset();
+    super.close();
   }
 }
