@@ -27,6 +27,10 @@ import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
 import FormValidator from '../components/FormValidator.js';
 
+// !!! TOKEN ID
+// Токен: 7a0a101a-b2ca-4848-ae3c-3b79f13c4cae
+// Идентификатор группы: cohort-34
+
 // ---
 
 const userInfo = new UserInfo(userInfoConfig);
@@ -71,12 +75,18 @@ const additionPopup = new FormPopup(
 
 // *** new submit handlers
 
-function handleUpdatePopupSubmit() {
+function handleUpdatePopupSubmit(submitValues) {
   console.log('update');
 }
 
-function handleConfirmPopupSubmit() {
+function handleConfirmPopupSubmit(submitValues) {
   console.log('confirm');
+}
+
+// *** remove button click handler
+
+function removeButtonClickHandler() {
+  confirmPopup.open();
 }
 
 // *** new popups
@@ -112,14 +122,6 @@ confirmPopup.setEventListeners();
 
 function openPopupImage(image, title) {
   imagePopup.open(image, title);
-}
-
-// *** remove button click handler
-
-function removeButtonClickHandler(card) {
-  card.remove();
-  card = null;
-  console.log('works');
 }
 
 function createNewCard(element) {
