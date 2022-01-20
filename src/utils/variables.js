@@ -40,6 +40,8 @@ export const cardConfig = {
 export const popupConfig = {
   editPopupId: 'profileEditPopup',
   addPopupId: 'cardAddPopup',
+  updatePopupId: 'updatePopup',
+  confirmPopupId: 'confirmPopup',
   imagePopupId: 'imageModalPopup',
   popupCloseButtonClass: 'popup__close',
   popupOpenedClass: 'popup_opened',
@@ -53,6 +55,8 @@ export const imagePopupConfig = {
 export const formPopupConfig = {
   editPopupFormId: 'editPopupForm',
   addPopupFormId: 'addPopupForm',
+  updatePopupFormId: 'updatePopupForm',
+  confirmPopupFormId: 'confirmPopupForm',
   formInputClass: 'popup__input',
 };
 
@@ -68,6 +72,8 @@ export const sectionConfig = {
 export const formValidatorConfig = {
   editFormId: 'editPopupForm',
   addFormId: 'addPopupForm',
+  updateFormId: 'updatePopupForm',
+  confirmFormId: 'confirmPopupForm',
   inputClass: 'popup__input',
   errorVisibleClass: 'popup__error_visible',
   inputErrorClass: 'popup__input_error',
@@ -81,3 +87,5 @@ export const profileName = document.querySelector('.profile__username');
 export const profileDescription = document.querySelector('.profile__description');
 export const profileEditButton = document.querySelector('.profile__edit');
 export const profileAddButton = document.querySelector('.profile__add');
+// *** profile overlay
+export const profileOverlay = document.querySelector('.profile__overlay');

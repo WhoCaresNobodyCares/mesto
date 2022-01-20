@@ -1,10 +1,11 @@
 export default class Card {
-  constructor(element, openPopupImage, config) {
+  constructor(element, openPopupImage, config, removeButtonClickHandler) {
     this._element = element;
     this._openPopupImage = openPopupImage;
     this._config = config;
     this._template = document.querySelector(`#${this._config.templateId}`);
     this._templateContent = this._template.content.querySelector(`.${this._config.cardClass}`);
+    this._removeButtonClickHandler = removeButtonClickHandler;
   }
 
   _handleLikeButtonClick = () => {
@@ -12,14 +13,16 @@ export default class Card {
   };
 
   _handleRemoveButtonClick = () => {
-    this._clone.remove();
-    this._clone = null;
+    this._removeButtonClickHandler(this._clone);
   };
 
   _setEventListeners() {
     this._cloneLikeButton.addEventListener('click', this._handleLikeButtonClick);
     this._cloneRemoveButton.addEventListener('click', this._handleRemoveButtonClick);
-    this._cloneImage.addEventListener('click', this._openPopupImage.bind(this, this._cloneImage, this._cloneTitle));
+    this._cloneImage.addEventListener(
+      'click',
+      this._openPopupImage.bind(this, this._cloneImage, this._cloneTitle)
+    );
   }
 
   _fillCloneElements() {
@@ -30,7 +33,9 @@ export default class Card {
   _findCloneElements() {
     this._cloneImage = this._clone.querySelector(`.${this._config.templateImageClass}`);
     this._cloneTitle = this._clone.querySelector(`.${this._config.templateTitleClass}`);
-    this._cloneRemoveButton = this._clone.querySelector(`.${this._config.templateRemoveButtonClass}`);
+    this._cloneRemoveButton = this._clone.querySelector(
+      `.${this._config.templateRemoveButtonClass}`
+    );
     this._cloneLikeButton = this._clone.querySelector(`.${this._config.templateLikeButtonClass}`);
   }
 

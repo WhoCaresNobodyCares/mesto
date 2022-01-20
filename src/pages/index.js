@@ -15,6 +15,7 @@ import {
   profileDescription,
   profileEditButton,
   profileAddButton,
+  profileOverlay,
 } from '../utils/variables.js';
 
 // ---
@@ -68,9 +69,44 @@ const additionPopup = new FormPopup(
   handleAdditionPopupSubmit
 );
 
+// *** new submit handlers
+
+function handleUpdatePopupSubmit() {
+  console.log('update');
+}
+
+function handleConfirmPopupSubmit() {
+  console.log('confirm');
+}
+
+// *** new popups
+
+const updatePopup = new FormPopup(
+  popupConfig.updatePopupId,
+  popupConfig.popupCloseButtonClass,
+  popupConfig.popupOpenedClass,
+  formPopupConfig.updatePopupFormId,
+  formPopupConfig.formInputClass,
+  handleUpdatePopupSubmit
+);
+
+const confirmPopup = new FormPopup(
+  popupConfig.confirmPopupId,
+  popupConfig.popupCloseButtonClass,
+  popupConfig.popupOpenedClass,
+  formPopupConfig.confirmPopupFormId,
+  formPopupConfig.formInputClass,
+  handleConfirmPopupSubmit
+);
+
 imagePopup.setEventListeners();
 editorPopup.setEventListeners();
 additionPopup.setEventListeners();
+
+// *** new popups event listeners
+
+updatePopup.setEventListeners();
+confirmPopup.setEventListeners();
 
 // ---
 
@@ -78,8 +114,16 @@ function openPopupImage(image, title) {
   imagePopup.open(image, title);
 }
 
+// *** remove button click handler
+
+function removeButtonClickHandler(card) {
+  card.remove();
+  card = null;
+  console.log('works');
+}
+
 function createNewCard(element) {
-  return new Card(element, openPopupImage, cardConfig).makeCard();
+  return new Card(element, openPopupImage, cardConfig, removeButtonClickHandler).makeCard();
 }
 
 function renderInitial(element) {
@@ -99,18 +143,43 @@ elementsSection.renderArray(initialCardsArray);
 const editFormValidator = new FormValidator(formValidatorConfig.editFormId, formValidatorConfig);
 const addFormValidator = new FormValidator(formValidatorConfig.addFormId, formValidatorConfig);
 
+// *** new form validators
+
+const updateFormValidator = new FormValidator(
+  formValidatorConfig.updateFormId,
+  formValidatorConfig
+);
+const confirmFormValidator = new FormValidator(
+  formValidatorConfig.confirmFormId,
+  formValidatorConfig
+);
+
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
+
+// *** new form validators enabled
+updateFormValidator.enableValidation();
+confirmFormValidator.enableValidation();
 
 // ---
 
 profileEditButton.addEventListener('click', () => {
   editFormValidator.resetValidation();
-  editorPopup.setInputValues({ nameInput: profileName.textContent, descriptionInput: profileDescription.textContent });
+  editorPopup.setInputValues({
+    nameInput: profileName.textContent,
+    descriptionInput: profileDescription.textContent,
+  });
   editorPopup.open();
 });
 
 profileAddButton.addEventListener('click', () => {
   addFormValidator.resetValidation();
   additionPopup.open();
+});
+
+// *** profile overlay event listener
+
+profileOverlay.addEventListener('click', () => {
+  updateFormValidator.resetValidation();
+  updatePopup.open();
 });
