@@ -3,7 +3,6 @@ import './index.css';
 // ---
 
 import {
-  initialCardsArray,
   cardConfig,
   popupConfig,
   imagePopupConfig,
@@ -16,6 +15,7 @@ import {
   profileEditButton,
   profileAddButton,
   profileOverlay,
+  apiConfig,
 } from '../utils/variables.js';
 
 // ---
@@ -26,10 +26,7 @@ import FormPopup from '../components/FormPopup.js';
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
 import FormValidator from '../components/FormValidator.js';
-
-// !!! TOKEN ID
-// Токен: 7a0a101a-b2ca-4848-ae3c-3b79f13c4cae
-// Идентификатор группы: cohort-34
+import Api from '../components/Api.js';
 
 // ---
 
@@ -48,11 +45,20 @@ const imagePopup = new ImagePopup(
 // ---
 
 function handleEditorPopupSubmit(submitValues) {
+  api.setUserInformation(submitValues.nameInput, submitValues.descriptionInput);
   userInfo.setInfo(submitValues.nameInput, submitValues.descriptionInput);
 }
 
 function handleAdditionPopupSubmit(submitValues) {
   elementsSection.renderCard({ name: submitValues.placeInput, link: submitValues.linkInput });
+}
+
+function handleUpdatePopupSubmit(submitValues) {
+  console.log('update');
+}
+
+function handleConfirmationPopupSubmit(submitValues) {
+  console.log('confirm');
 }
 
 const editorPopup = new FormPopup(
@@ -73,24 +79,6 @@ const additionPopup = new FormPopup(
   handleAdditionPopupSubmit
 );
 
-// *** new submit handlers
-
-function handleUpdatePopupSubmit(submitValues) {
-  console.log('update');
-}
-
-function handleConfirmPopupSubmit(submitValues) {
-  console.log('confirm');
-}
-
-// *** remove button click handler
-
-function removeButtonClickHandler() {
-  confirmPopup.open();
-}
-
-// *** new popups
-
 const updatePopup = new FormPopup(
   popupConfig.updatePopupId,
   popupConfig.popupCloseButtonClass,
@@ -100,25 +88,26 @@ const updatePopup = new FormPopup(
   handleUpdatePopupSubmit
 );
 
-const confirmPopup = new FormPopup(
+const confirmationPopup = new FormPopup(
   popupConfig.confirmPopupId,
   popupConfig.popupCloseButtonClass,
   popupConfig.popupOpenedClass,
   formPopupConfig.confirmPopupFormId,
   formPopupConfig.formInputClass,
-  handleConfirmPopupSubmit
+  handleConfirmationPopupSubmit
 );
 
 imagePopup.setEventListeners();
 editorPopup.setEventListeners();
 additionPopup.setEventListeners();
-
-// *** new popups event listeners
-
 updatePopup.setEventListeners();
-confirmPopup.setEventListeners();
+confirmationPopup.setEventListeners();
 
 // ---
+
+function removeButtonClickHandler() {
+  confirmationPopup.open();
+}
 
 function openPopupImage(image, title) {
   imagePopup.open(image, title);
@@ -138,14 +127,10 @@ function renderNew(element) {
 
 const elementsSection = new Section(renderInitial, renderNew, sectionConfig.containerSelectorId);
 
-elementsSection.renderArray(initialCardsArray);
-
 // ---
 
 const editFormValidator = new FormValidator(formValidatorConfig.editFormId, formValidatorConfig);
 const addFormValidator = new FormValidator(formValidatorConfig.addFormId, formValidatorConfig);
-
-// *** new form validators
 
 const updateFormValidator = new FormValidator(
   formValidatorConfig.updateFormId,
@@ -158,11 +143,20 @@ const confirmFormValidator = new FormValidator(
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
-
-// *** new form validators enabled
 updateFormValidator.enableValidation();
 confirmFormValidator.enableValidation();
 
+// ---
+
+const api = new Api(apiConfig.url, apiConfig.token);
+
+api.getInitialCardsArray().then(initialCardsArray => {
+  elementsSection.renderArray(initialCardsArray);
+});
+
+api.getUserInformation().then(userInfoObject => {
+  userInfo.setInfo(userInfoObject.name, userInfoObject.about);
+});
 // ---
 
 profileEditButton.addEventListener('click', () => {
@@ -178,8 +172,6 @@ profileAddButton.addEventListener('click', () => {
   addFormValidator.resetValidation();
   additionPopup.open();
 });
-
-// *** profile overlay event listener
 
 profileOverlay.addEventListener('click', () => {
   updateFormValidator.resetValidation();
