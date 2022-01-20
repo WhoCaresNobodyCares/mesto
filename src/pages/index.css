@@ -25,7 +25,7 @@
 /*  elements */
 @import url(../blocks/profile/__avatar-wrap/profile__avatar-wrap.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
-@import url(.../blocks/profile/__overlay/profile__overlay.css);
+@import url(../blocks/profile/__overlay/profile__overlay.css);
 @import url(../blocks/profile/__wrap/profile__wrap.css);
 @import url(../blocks/profile/__username/profile__username.css);
 @import url(../blocks/profile/__edit/profile__edit.css);
