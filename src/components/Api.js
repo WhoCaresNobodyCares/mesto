@@ -4,6 +4,14 @@ export default class Api {
     this._token = token;
   }
 
+  _handleThenErrors(methodName, response) {
+    return Promise.reject(`Что-то пошло не так в ${methodName} - ${response.status}`);
+  }
+
+  _handleCatchErrors(methodName, error) {
+    console.log(`Что-то действительно пошло не так в ${methodName} - ${error}`);
+  }
+
   getUserInformation() {
     return fetch(`${this._url}/users/me`, {
       headers: {
@@ -14,11 +22,11 @@ export default class Api {
         if (response.ok) {
           return response.json();
         } else {
-          return Promise.reject(`Что-то пошло не так в getUserInformation(): ${response.status}`);
+          return this._handleThenErrors('getUserInformation()', response);
         }
       })
       .catch(error => {
-        console.log(`Что-то действительно пошло не так в getUserInformation(): ${error}`);
+        this._handleCatchErrors('getUserInformation()', error);
       });
   }
 
@@ -33,9 +41,14 @@ export default class Api {
         name: name,
         about: about,
       }),
-    }).catch(error => {
-      console.log(`Что-то действительно пошло не так в setUserInformation(): ${error}`);
-    });
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(`Теперь твоё имя - ${data.name}, а твоё описание - ${data.about}`);
+      })
+      .catch(error => {
+        this._handleCatchErrors('setUserInformation()', error);
+      });
   }
 
   getInitialCardsArray() {
@@ -48,11 +61,34 @@ export default class Api {
         if (response.ok) {
           return response.json();
         } else {
-          return Promise.reject(`Что-то пошло не так в getInitialCardsArray(): ${response.status}`);
+          return this._handleThenErrors('getInitialCardsArray()', response);
         }
       })
       .catch(error => {
-        console.log(`Что-то действительно пошло не так в getInitialCardsArray(): ${error}`);
+        this._handleCatchErrors('getInitialCardsArray()', error);
+      });
+  }
+
+  addNewCard(name, link) {
+    fetch(`${this._url}/cards`, {
+      method: 'POST',
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        link: link,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(
+          `Ты загрузил карточку! Имя - ${data.name}, а ссылка на изображение - ${data.link}`
+        );
+      })
+      .catch(error => {
+        this._handleCatchErrors('addNewCard()', error);
       });
   }
 }

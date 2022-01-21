@@ -50,6 +50,7 @@ function handleEditorPopupSubmit(submitValues) {
 }
 
 function handleAdditionPopupSubmit(submitValues) {
+  api.addNewCard(submitValues.placeInput, submitValues.linkInput);
   elementsSection.renderCard({ name: submitValues.placeInput, link: submitValues.linkInput });
 }
 
