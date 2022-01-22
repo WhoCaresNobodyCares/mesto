@@ -18,6 +18,10 @@ export default class Card {
     this._cloneImage.addEventListener('click', this._openPopupImage.bind(this, this._cloneImage, this._cloneTitle));
   }
 
+  _fillLikeCounter() {
+    this._element.likes ? (this._cloneLikeCounter.textContent = this._element.likes.length) : (this._cloneLikeCounter.textContent = '0');
+  }
+
   _fillCloneElements() {
     this._cloneImage.src = this._element.link;
     this._cloneTitle.textContent = this._cloneImage.alt = this._element.name;
@@ -28,6 +32,7 @@ export default class Card {
     this._cloneTitle = this._clone.querySelector(`.${this._config.templateTitleClass}`);
     this._cloneRemoveButton = this._clone.querySelector(`.${this._config.templateRemoveButtonClass}`);
     this._cloneLikeButton = this._clone.querySelector(`.${this._config.templateLikeButtonClass}`);
+    this._cloneLikeCounter = this._clone.querySelector(`.${this._config.templateLikeCounterClass}`);
   }
 
   _cloneTemplate() {
@@ -38,6 +43,7 @@ export default class Card {
     this._cloneTemplate();
     this._findCloneElements();
     this._fillCloneElements();
+    this._fillLikeCounter();
     this._setEventListeners();
     return this._clone;
   }
