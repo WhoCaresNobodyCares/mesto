@@ -4,34 +4,16 @@ export default class Api {
     this._token = token;
   }
 
-  _handleThenErrors(methodName, response) {
-    return Promise.reject(`Что-то пошло не так в ${methodName} - ${response.status}`);
-  }
-
-  _handleCatchErrors(methodName, error) {
-    console.log(`Что-то действительно пошло не так в ${methodName} - ${error}`);
-  }
-
   getUserInformation() {
     return fetch(`${this._url}/users/me`, {
-      headers: {
-        authorization: this._token,
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return this._handleThenErrors('getUserInformation()', response);
-        }
-      })
-      .catch(error => {
-        this._handleCatchErrors('getUserInformation()', error);
-      });
+      headers: { authorization: this._token },
+    }).then(response => {
+      return response.ok ? response.json() : Promise.reject(`${response.status}`);
+    });
   }
 
   setUserInformation(name, about) {
-    fetch(`${this._url}/users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: {
         authorization: this._token,
@@ -41,14 +23,9 @@ export default class Api {
         name: name,
         about: about,
       }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(`Теперь твоё имя - ${data.name}, а твоё описание - ${data.about}`);
-      })
-      .catch(error => {
-        this._handleCatchErrors('setUserInformation()', error);
-      });
+    }).then(response => {
+      return response.ok ? response.json() : Promise.reject(`${response.status}`);
+    });
   }
 
   getInitialCardsArray() {
@@ -56,21 +33,13 @@ export default class Api {
       headers: {
         authorization: this._token,
       },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return this._handleThenErrors('getInitialCardsArray()', response);
-        }
-      })
-      .catch(error => {
-        this._handleCatchErrors('getInitialCardsArray()', error);
-      });
+    }).then(response => {
+      return response.ok ? response.json() : Promise.reject(`${response.status}`);
+    });
   }
 
   addNewCard(name, link) {
-    fetch(`${this._url}/cards`, {
+    return fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: {
         authorization: this._token,
@@ -80,15 +49,8 @@ export default class Api {
         name: name,
         link: link,
       }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(
-          `Ты загрузил карточку! Имя - ${data.name}, а ссылка на изображение - ${data.link}`
-        );
-      })
-      .catch(error => {
-        this._handleCatchErrors('addNewCard()', error);
-      });
+    }).then(response => {
+      return response.ok ? response.json() : Promise.reject(`${response.status}`);
+    });
   }
 }

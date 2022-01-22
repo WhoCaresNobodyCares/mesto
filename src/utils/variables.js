@@ -6,6 +6,7 @@ export const cardConfig = {
   templateRemoveButtonClass: 'card__remove',
   templateLikeButtonClass: 'card__like',
   templateLikeButtonActiveClass: 'card__like_active',
+  templateLikeCounterClass: 'card__number',
 };
 
 export const popupConfig = {

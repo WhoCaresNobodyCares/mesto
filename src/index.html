@@ -65,8 +65,8 @@
         <input class="popup__input" type="text" name="placeInput" id="placeInput" placeholder="Название" minlength="2"
           maxlength="30" required />
         <span id="placeInput-err" class="popup__error"></span>
-        <input class="popup__input" type="url" name="linkInput" id="linkInput"
-          placeholder="Ссылка на картинку в формате Jpeg" required />
+        <input class="popup__input" type="url" name="linkInput" id="linkInput" placeholder="Ссылка на картинку"
+          required />
         <span id="linkInput-err" class="popup__error"></span>
         <button type="submit" class="popup__submit">Создать</button>
       </form>
@@ -106,7 +106,7 @@
   <!-- template -->
   <template id="cardTemplate">
     <div class="card">
-      <button type="button" aria-label="Удалить карточку" class="card__remove"></button>
+      <button type="button" aria-label="Удалить карточку" class="card__remove card__remove_hidden"></button>
       <img src="#" alt="" class="card__image" />
       <div class="card__description">
         <h2 class="card__title"></h2>

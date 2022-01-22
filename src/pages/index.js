@@ -30,6 +30,24 @@ import Api from '../components/Api.js';
 
 // ---
 
+const api = new Api(apiConfig.url, apiConfig.token);
+
+function handleApiErrors(error) {
+  console.log(`Something went wrong: ${error}`);
+}
+
+api
+  .getInitialCardsArray()
+  .then(initialCardsArray => elementsSection.renderArray(initialCardsArray))
+  .catch(error => handleApiErrors(error));
+
+api
+  .getUserInformation()
+  .then(userInfoObject => userInfo.setInfo(userInfoObject.name, userInfoObject.about))
+  .catch(error => handleApiErrors(error));
+
+// ---
+
 const userInfo = new UserInfo(userInfoConfig);
 
 // ---
@@ -45,13 +63,17 @@ const imagePopup = new ImagePopup(
 // ---
 
 function handleEditorPopupSubmit(submitValues) {
-  api.setUserInformation(submitValues.nameInput, submitValues.descriptionInput);
-  userInfo.setInfo(submitValues.nameInput, submitValues.descriptionInput);
+  api
+    .setUserInformation(submitValues.nameInput, submitValues.descriptionInput)
+    .then(() => userInfo.setInfo(submitValues.nameInput, submitValues.descriptionInput))
+    .catch(error => handleApiErrors(error));
 }
 
 function handleAdditionPopupSubmit(submitValues) {
-  api.addNewCard(submitValues.placeInput, submitValues.linkInput);
-  elementsSection.renderCard({ name: submitValues.placeInput, link: submitValues.linkInput });
+  api
+    .addNewCard(submitValues.placeInput, submitValues.linkInput)
+    .then(() => elementsSection.renderCard({ name: submitValues.placeInput, link: submitValues.linkInput }))
+    .catch(error => handleApiErrors(error));
 }
 
 function handleUpdatePopupSubmit(submitValues) {
@@ -114,6 +136,7 @@ function openPopupImage(image, title) {
   imagePopup.open(image, title);
 }
 
+// !!!
 function createNewCard(element) {
   return new Card(element, openPopupImage, cardConfig, removeButtonClickHandler).makeCard();
 }
@@ -133,31 +156,14 @@ const elementsSection = new Section(renderInitial, renderNew, sectionConfig.cont
 const editFormValidator = new FormValidator(formValidatorConfig.editFormId, formValidatorConfig);
 const addFormValidator = new FormValidator(formValidatorConfig.addFormId, formValidatorConfig);
 
-const updateFormValidator = new FormValidator(
-  formValidatorConfig.updateFormId,
-  formValidatorConfig
-);
-const confirmFormValidator = new FormValidator(
-  formValidatorConfig.confirmFormId,
-  formValidatorConfig
-);
+const updateFormValidator = new FormValidator(formValidatorConfig.updateFormId, formValidatorConfig);
+const confirmFormValidator = new FormValidator(formValidatorConfig.confirmFormId, formValidatorConfig);
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 updateFormValidator.enableValidation();
 confirmFormValidator.enableValidation();
 
-// ---
-
-const api = new Api(apiConfig.url, apiConfig.token);
-
-api.getInitialCardsArray().then(initialCardsArray => {
-  elementsSection.renderArray(initialCardsArray);
-});
-
-api.getUserInformation().then(userInfoObject => {
-  userInfo.setInfo(userInfoObject.name, userInfoObject.about);
-});
 // ---
 
 profileEditButton.addEventListener('click', () => {
