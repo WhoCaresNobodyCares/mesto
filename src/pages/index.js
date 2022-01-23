@@ -15,6 +15,8 @@ import {
   profileDescription,
   profileEditButton,
   profileAddButton,
+  apiConfig,
+  profileAvatar,
 } from '../utils/variables.js';
 
 // ---
@@ -25,6 +27,29 @@ import FormPopup from '../components/FormPopup.js';
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
 import FormValidator from '../components/FormValidator.js';
+import Api from '../components/Api';
+import ConfirmPopup from '../components/ConfirmPopup.js';
+
+// ---
+
+const api = new Api(apiConfig.url, apiConfig.token);
+
+function handleApiErrors(error) {
+  console.log(`WASTED - ${error}`);
+}
+
+api
+  .getUserInfo()
+  .then(data => {
+    profileAvatar.style = `background-image: url('${data.avatar}');`;
+    userInfo.setInfo(data.name, data.about);
+  })
+  .catch(error => handleApiErrors(error));
+
+api
+  .getInitialArray()
+  .then(data => elementsSection.renderArray(data))
+  .catch(error => handleApiErrors(error));
 
 // ---
 
@@ -42,12 +67,22 @@ const imagePopup = new ImagePopup(
 
 // ---
 
+// !!! MAKE IT WAIT TILL THE END OF THE OPERATION
+
 function handleEditorPopupSubmit(submitValues) {
-  userInfo.setInfo(submitValues.nameInput, submitValues.descriptionInput);
+  api
+    .setUserInfo(submitValues.nameInput, submitValues.descriptionInput)
+    .then(data => userInfo.setInfo(data.name, data.about))
+    .catch(error => handleApiErrors(error));
 }
 
+// !!! MAKE IT WAIT TILL THE END OF THE OPERATION
+
 function handleAdditionPopupSubmit(submitValues) {
-  elementsSection.renderCard({ name: submitValues.placeInput, link: submitValues.linkInput });
+  api
+    .addNewCard(submitValues.placeInput, submitValues.linkInput)
+    .then(data => elementsSection.renderCard(data))
+    .catch(error => handleApiErrors(error));
 }
 
 const editorPopup = new FormPopup(
@@ -74,12 +109,35 @@ additionPopup.setEventListeners();
 
 // ---
 
+function handleConfirmPopupSubmit(card, id) {
+  api
+    .deleteCard(id)
+    .then(() => {
+      card.remove();
+      card = null;
+    })
+    .catch(error => handleApiErrors(error));
+}
+
+const confirmPopup = new ConfirmPopup(
+  popupConfig.confirmPopupId,
+  popupConfig.popupCloseButtonClass,
+  popupConfig.popupOpenedClass,
+  formPopupConfig.confirmPopupFormId,
+  formPopupConfig.formInputClass,
+  handleConfirmPopupSubmit
+);
+
+confirmPopup.setEventListeners();
+
+// ---
+
 function openPopupImage(image, title) {
   imagePopup.open(image, title);
 }
 
 function createNewCard(element) {
-  return new Card(element, openPopupImage, cardConfig).makeCard();
+  return new Card(element, openPopupImage, cardConfig, confirmPopup).makeCard();
 }
 
 function renderInitial(element) {
@@ -91,8 +149,6 @@ function renderNew(element) {
 }
 
 const elementsSection = new Section(renderInitial, renderNew, sectionConfig.containerSelectorId);
-
-elementsSection.renderArray(initialCardsArray);
 
 // ---
 
