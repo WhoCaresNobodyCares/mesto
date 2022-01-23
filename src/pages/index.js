@@ -15,7 +15,6 @@ import {
   profileDescription,
   profileEditButton,
   profileAddButton,
-  apiConfig,
 } from '../utils/variables.js';
 
 // ---
@@ -26,25 +25,6 @@ import FormPopup from '../components/FormPopup.js';
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
 import FormValidator from '../components/FormValidator.js';
-import Api from '../components/Api.js';
-
-// ---
-
-const api = new Api(apiConfig.url, apiConfig.token);
-
-function handleApiErrors(error) {
-  console.log(`Something went wrong - ${error}`);
-}
-
-api
-  .getUserInformation()
-  .then(data => userInfo.setInfo(data.name, data.about))
-  .catch(error => handleApiErrors(error));
-
-api
-  .getInitialCardsArray()
-  .then(data => elementsSection.renderArray(data))
-  .catch(error => handleApiErrors(error));
 
 // ---
 
@@ -63,17 +43,11 @@ const imagePopup = new ImagePopup(
 // ---
 
 function handleEditorPopupSubmit(submitValues) {
-  api
-    .setUserInformation(submitValues.nameInput, submitValues.descriptionInput)
-    .then(data => userInfo.setInfo(data.name, data.about))
-    .catch(error => handleApiErrors(error));
+  userInfo.setInfo(submitValues.nameInput, submitValues.descriptionInput);
 }
 
 function handleAdditionPopupSubmit(submitValues) {
-  api
-    .addNewCard(submitValues.placeInput, submitValues.linkInput)
-    .then(data => elementsSection.renderCard(data))
-    .catch(error => handleApiErrors(error));
+  elementsSection.renderCard({ name: submitValues.placeInput, link: submitValues.linkInput });
 }
 
 const editorPopup = new FormPopup(
@@ -100,29 +74,12 @@ additionPopup.setEventListeners();
 
 // ---
 
-// !!!
-
-function handleConfirmationPopupSubmit() {}
-
-const confirmPopup = new FormPopup(
-  popupConfig.confirmPopupId,
-  popupConfig.popupCloseButtonClass,
-  popupConfig.popupOpenedClass,
-  formPopupConfig.confirmPopupFormId,
-  formPopupConfig.formInputClass,
-  handleConfirmationPopupSubmit
-);
-
-confirmPopup.setEventListeners();
-
-// ---
-
 function openPopupImage(image, title) {
   imagePopup.open(image, title);
 }
 
 function createNewCard(element) {
-  return new Card(element, openPopupImage, cardConfig, api).makeCard();
+  return new Card(element, openPopupImage, cardConfig).makeCard();
 }
 
 function renderInitial(element) {
@@ -134,6 +91,8 @@ function renderNew(element) {
 }
 
 const elementsSection = new Section(renderInitial, renderNew, sectionConfig.containerSelectorId);
+
+elementsSection.renderArray(initialCardsArray);
 
 // ---
 
