@@ -12,6 +12,16 @@ export default class Api {
     });
   }
 
+  getInitialCardsArray() {
+    return fetch(`${this._url}/cards`, {
+      headers: {
+        authorization: this._token,
+      },
+    }).then(response => {
+      return response.ok ? response.json() : Promise.reject(`${response.status}`);
+    });
+  }
+
   setUserInformation(name, about) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
@@ -23,16 +33,6 @@ export default class Api {
         name: name,
         about: about,
       }),
-    }).then(response => {
-      return response.ok ? response.json() : Promise.reject(`${response.status}`);
-    });
-  }
-
-  getInitialCardsArray() {
-    return fetch(`${this._url}/cards`, {
-      headers: {
-        authorization: this._token,
-      },
     }).then(response => {
       return response.ok ? response.json() : Promise.reject(`${response.status}`);
     });

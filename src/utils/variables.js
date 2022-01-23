@@ -6,15 +6,14 @@ export const cardConfig = {
   templateRemoveButtonClass: 'card__remove',
   templateLikeButtonClass: 'card__like',
   templateLikeButtonActiveClass: 'card__like_active',
-  templateLikeCounterClass: 'card__number',
+  templateLikeCounter: 'card__number',
 };
 
 export const popupConfig = {
   editPopupId: 'profileEditPopup',
   addPopupId: 'cardAddPopup',
-  updatePopupId: 'updatePopup',
-  confirmPopupId: 'confirmPopup',
   imagePopupId: 'imageModalPopup',
+  confirmPopupId: 'confirmPopup',
   popupCloseButtonClass: 'popup__close',
   popupOpenedClass: 'popup_opened',
 };
@@ -27,9 +26,8 @@ export const imagePopupConfig = {
 export const formPopupConfig = {
   editPopupFormId: 'editPopupForm',
   addPopupFormId: 'addPopupForm',
-  updatePopupFormId: 'updatePopupForm',
-  confirmPopupFormId: 'confirmPopupForm',
   formInputClass: 'popup__input',
+  confirmPopupFormId: 'confirmPopupForm',
 };
 
 export const userInfoConfig = {
@@ -44,8 +42,6 @@ export const sectionConfig = {
 export const formValidatorConfig = {
   editFormId: 'editPopupForm',
   addFormId: 'addPopupForm',
-  updateFormId: 'updatePopupForm',
-  confirmFormId: 'confirmPopupForm',
   inputClass: 'popup__input',
   errorVisibleClass: 'popup__error_visible',
   inputErrorClass: 'popup__input_error',
@@ -64,4 +60,3 @@ export const profileName = document.querySelector('.profile__username');
 export const profileDescription = document.querySelector('.profile__description');
 export const profileEditButton = document.querySelector('.profile__edit');
 export const profileAddButton = document.querySelector('.profile__add');
-export const profileOverlay = document.querySelector('.profile__overlay');

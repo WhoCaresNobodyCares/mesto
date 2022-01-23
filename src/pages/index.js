@@ -3,6 +3,7 @@ import './index.css';
 // ---
 
 import {
+  initialCardsArray,
   cardConfig,
   popupConfig,
   imagePopupConfig,
@@ -14,7 +15,6 @@ import {
   profileDescription,
   profileEditButton,
   profileAddButton,
-  profileOverlay,
   apiConfig,
 } from '../utils/variables.js';
 
@@ -33,17 +33,17 @@ import Api from '../components/Api.js';
 const api = new Api(apiConfig.url, apiConfig.token);
 
 function handleApiErrors(error) {
-  console.log(`Something went wrong: ${error}`);
+  console.log(`Something went wrong - ${error}`);
 }
 
 api
-  .getInitialCardsArray()
-  .then(initialCardsArray => elementsSection.renderArray(initialCardsArray))
+  .getUserInformation()
+  .then(data => userInfo.setInfo(data.name, data.about))
   .catch(error => handleApiErrors(error));
 
 api
-  .getUserInformation()
-  .then(userInfoObject => userInfo.setInfo(userInfoObject.name, userInfoObject.about))
+  .getInitialCardsArray()
+  .then(data => elementsSection.renderArray(data))
   .catch(error => handleApiErrors(error));
 
 // ---
@@ -65,23 +65,15 @@ const imagePopup = new ImagePopup(
 function handleEditorPopupSubmit(submitValues) {
   api
     .setUserInformation(submitValues.nameInput, submitValues.descriptionInput)
-    .then(() => userInfo.setInfo(submitValues.nameInput, submitValues.descriptionInput))
+    .then(data => userInfo.setInfo(data.name, data.about))
     .catch(error => handleApiErrors(error));
 }
 
 function handleAdditionPopupSubmit(submitValues) {
   api
     .addNewCard(submitValues.placeInput, submitValues.linkInput)
-    .then(() => elementsSection.renderCard({ name: submitValues.placeInput, link: submitValues.linkInput }))
+    .then(data => elementsSection.renderCard(data))
     .catch(error => handleApiErrors(error));
-}
-
-function handleUpdatePopupSubmit(submitValues) {
-  console.log('update');
-}
-
-function handleConfirmationPopupSubmit(submitValues) {
-  console.log('confirm');
 }
 
 const editorPopup = new FormPopup(
@@ -102,16 +94,17 @@ const additionPopup = new FormPopup(
   handleAdditionPopupSubmit
 );
 
-const updatePopup = new FormPopup(
-  popupConfig.updatePopupId,
-  popupConfig.popupCloseButtonClass,
-  popupConfig.popupOpenedClass,
-  formPopupConfig.updatePopupFormId,
-  formPopupConfig.formInputClass,
-  handleUpdatePopupSubmit
-);
+imagePopup.setEventListeners();
+editorPopup.setEventListeners();
+additionPopup.setEventListeners();
 
-const confirmationPopup = new FormPopup(
+// ---
+
+// !!!
+
+function handleConfirmationPopupSubmit() {}
+
+const confirmPopup = new FormPopup(
   popupConfig.confirmPopupId,
   popupConfig.popupCloseButtonClass,
   popupConfig.popupOpenedClass,
@@ -120,25 +113,16 @@ const confirmationPopup = new FormPopup(
   handleConfirmationPopupSubmit
 );
 
-imagePopup.setEventListeners();
-editorPopup.setEventListeners();
-additionPopup.setEventListeners();
-updatePopup.setEventListeners();
-confirmationPopup.setEventListeners();
+confirmPopup.setEventListeners();
 
 // ---
-
-function removeButtonClickHandler() {
-  confirmationPopup.open();
-}
 
 function openPopupImage(image, title) {
   imagePopup.open(image, title);
 }
 
-// !!!
 function createNewCard(element) {
-  return new Card(element, openPopupImage, cardConfig, removeButtonClickHandler).makeCard();
+  return new Card(element, openPopupImage, cardConfig, api).makeCard();
 }
 
 function renderInitial(element) {
@@ -156,31 +140,18 @@ const elementsSection = new Section(renderInitial, renderNew, sectionConfig.cont
 const editFormValidator = new FormValidator(formValidatorConfig.editFormId, formValidatorConfig);
 const addFormValidator = new FormValidator(formValidatorConfig.addFormId, formValidatorConfig);
 
-const updateFormValidator = new FormValidator(formValidatorConfig.updateFormId, formValidatorConfig);
-const confirmFormValidator = new FormValidator(formValidatorConfig.confirmFormId, formValidatorConfig);
-
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
-updateFormValidator.enableValidation();
-confirmFormValidator.enableValidation();
 
 // ---
 
 profileEditButton.addEventListener('click', () => {
   editFormValidator.resetValidation();
-  editorPopup.setInputValues({
-    nameInput: profileName.textContent,
-    descriptionInput: profileDescription.textContent,
-  });
+  editorPopup.setInputValues({ nameInput: profileName.textContent, descriptionInput: profileDescription.textContent });
   editorPopup.open();
 });
 
 profileAddButton.addEventListener('click', () => {
   addFormValidator.resetValidation();
   additionPopup.open();
-});
-
-profileOverlay.addEventListener('click', () => {
-  updateFormValidator.resetValidation();
-  updatePopup.open();
 });
