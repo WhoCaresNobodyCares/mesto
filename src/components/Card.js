@@ -1,15 +1,33 @@
 export default class Card {
-  constructor(element, openPopupImage, config, confirmPopup) {
+  constructor(element, openPopupImage, config, confirmPopup, api, userInfo) {
     this._element = element;
     this._openPopupImage = openPopupImage;
     this._config = config;
     this._template = document.querySelector(`#${this._config.templateId}`);
     this._templateContent = this._template.content.querySelector(`.${this._config.cardClass}`);
     this._confirmPopup = confirmPopup;
+    this._api = api;
+    this._userInfo = userInfo;
   }
 
   _handleLikeButtonClick = () => {
-    this._cloneLikeButton.classList.toggle(`${this._config.templateLikeButtonActiveClass}`);
+    if (this._cloneLikeButton.classList.contains(this._config.templateLikeButtonActiveClass)) {
+      this._api
+        .removeLike(this._id)
+        .then(data => {
+          this._cloneLikeButton.classList.remove(`${this._config.templateLikeButtonActiveClass}`);
+          this._likesCounter.textContent = data.likes.length;
+        })
+        .catch(error => console.log(`Something went wrong - ${error}`));
+    } else {
+      this._api
+        .putLike(this._id)
+        .then(data => {
+          this._cloneLikeButton.classList.add(`${this._config.templateLikeButtonActiveClass}`);
+          this._likesCounter.textContent = data.likes.length;
+        })
+        .catch(error => console.log(`Something went wrong - ${error}`));
+    }
   };
 
   _handleRemoveButtonClick = () => {
@@ -28,20 +46,22 @@ export default class Card {
     this._likesCounter.textContent = this._likes.length;
   }
 
-  // !!! STOPPED HERE
+  _activateUserLikes() {
+    this._likes.forEach(object => {
+      if (object.name === this._userInfo.getInfo().name) {
+        this._cloneLikeButton.classList.add(`${this._config.templateLikeButtonActiveClass}`);
+      }
+    });
+  }
 
-  _unlockRemoveButton() {}
-
-  // _unlockRemoveButton() {
-  //   this._api
-  //     .getUserInformation()
-  //     .then(data => {
-  //       if (data.name === this._owner) {
-  //         this._cloneRemoveButton.classList.remove('card__remove_hidden');
-  //       }
-  //     })
-  //     .catch(error => this._handleApiErrors(error));
-  // }
+  _unlockRemoveButton() {
+    this._api
+      .getUserInfo()
+      .then(data => {
+        data.name === this._owner && this._cloneRemoveButton.classList.remove(this._config.templateRemoveButtonHiddenClass);
+      })
+      .catch(error => console.log(`Something went wrong - ${error}`));
+  }
 
   _findCloneElements() {
     this._cloneImage = this._clone.querySelector(`.${this._config.templateImageClass}`);
@@ -55,12 +75,10 @@ export default class Card {
     this._clone = this._templateContent.cloneNode(true);
   }
 
-  // !!! COLLECT CARD INFORMATION
-
   _collectElementInfo() {
     this._id = this._element._id;
     this._likes = this._element.likes;
-    this._owner = this._element.owner;
+    this._owner = this._element.owner.name;
   }
 
   makeCard() {
@@ -68,6 +86,7 @@ export default class Card {
     this._cloneTemplate();
     this._findCloneElements();
     this._unlockRemoveButton();
+    this._activateUserLikes();
     this._fillCloneElements();
     this._setEventListeners();
     return this._clone;

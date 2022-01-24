@@ -3,7 +3,6 @@ import './index.css';
 // ---
 
 import {
-  initialCardsArray,
   cardConfig,
   popupConfig,
   imagePopupConfig,
@@ -17,6 +16,7 @@ import {
   profileAddButton,
   apiConfig,
   profileAvatar,
+  profileOverlay,
 } from '../utils/variables.js';
 
 // ---
@@ -67,22 +67,20 @@ const imagePopup = new ImagePopup(
 
 // ---
 
-// !!! MAKE IT WAIT TILL THE END OF THE OPERATION
-
-function handleEditorPopupSubmit(submitValues) {
-  api
-    .setUserInfo(submitValues.nameInput, submitValues.descriptionInput)
-    .then(data => userInfo.setInfo(data.name, data.about))
-    .catch(error => handleApiErrors(error));
+function handleEditorPopupSubmit(submitValues, popup) {
+  popup.querySelector('.popup__submit').textContent = 'Сохраняется...';
+  return api.setUserInfo(submitValues.nameInput, submitValues.descriptionInput).then(data => {
+    userInfo.setInfo(data.name, data.about);
+    popup.querySelector('.popup__submit').textContent = 'Сохранить';
+  });
 }
 
-// !!! MAKE IT WAIT TILL THE END OF THE OPERATION
-
-function handleAdditionPopupSubmit(submitValues) {
-  api
-    .addNewCard(submitValues.placeInput, submitValues.linkInput)
-    .then(data => elementsSection.renderCard(data))
-    .catch(error => handleApiErrors(error));
+function handleAdditionPopupSubmit(submitValues, popup) {
+  popup.querySelector('.popup__submit').textContent = 'Создается...';
+  return api.addNewCard(submitValues.placeInput, submitValues.linkInput).then(data => {
+    elementsSection.renderCard(data);
+    popup.querySelector('.popup__submit').textContent = 'Создать';
+  });
 }
 
 const editorPopup = new FormPopup(
@@ -109,14 +107,34 @@ additionPopup.setEventListeners();
 
 // ---
 
-function handleConfirmPopupSubmit(card, id) {
-  api
-    .deleteCard(id)
-    .then(() => {
-      card.remove();
-      card = null;
-    })
-    .catch(error => handleApiErrors(error));
+function handleUpdatePopupSubmit(submitValues, popup) {
+  popup.querySelector('.popup__submit').textContent = 'Сохраняется...';
+  return api.setUserAvatar(submitValues.pictureInput).then(data => {
+    profileAvatar.style = `background-image: url('${data.avatar}');`;
+    popup.querySelector('.popup__submit').textContent = 'Сохранить';
+  });
+}
+
+const updatePopup = new FormPopup(
+  popupConfig.updatePopupId,
+  popupConfig.popupCloseButtonClass,
+  popupConfig.popupOpenedClass,
+  formPopupConfig.updatePopupFormId,
+  formPopupConfig.formInputClass,
+  handleUpdatePopupSubmit
+);
+
+updatePopup.setEventListeners();
+
+// ---
+
+function handleConfirmPopupSubmit(card, id, popup) {
+  popup.querySelector('.popup__submit').textContent = 'Удаляется...';
+  return api.deleteCard(id).then(() => {
+    card.remove();
+    card = null;
+    popup.querySelector('.popup__submit').textContent = 'Да';
+  });
 }
 
 const confirmPopup = new ConfirmPopup(
@@ -137,7 +155,7 @@ function openPopupImage(image, title) {
 }
 
 function createNewCard(element) {
-  return new Card(element, openPopupImage, cardConfig, confirmPopup).makeCard();
+  return new Card(element, openPopupImage, cardConfig, confirmPopup, api, userInfo).makeCard();
 }
 
 function renderInitial(element) {
@@ -154,9 +172,11 @@ const elementsSection = new Section(renderInitial, renderNew, sectionConfig.cont
 
 const editFormValidator = new FormValidator(formValidatorConfig.editFormId, formValidatorConfig);
 const addFormValidator = new FormValidator(formValidatorConfig.addFormId, formValidatorConfig);
+const updateFormValidator = new FormValidator(formValidatorConfig.updateFormId, formValidatorConfig);
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
+updateFormValidator.enableValidation();
 
 // ---
 
@@ -169,4 +189,9 @@ profileEditButton.addEventListener('click', () => {
 profileAddButton.addEventListener('click', () => {
   addFormValidator.resetValidation();
   additionPopup.open();
+});
+
+profileOverlay.addEventListener('click', () => {
+  updateFormValidator.resetValidation();
+  updatePopup.open();
 });

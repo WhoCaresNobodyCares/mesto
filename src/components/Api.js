@@ -33,4 +33,26 @@ export default class Api {
       response.json()
     );
   }
+
+  putLike(id) {
+    return fetch(`${this._url}/cards/${id}/likes`, {
+      method: 'PUT',
+      headers: { authorization: this._token },
+    }).then(response => response.json());
+  }
+
+  removeLike(id) {
+    return fetch(`${this._url}/cards/${id}/likes`, {
+      method: 'DELETE',
+      headers: { authorization: this._token },
+    }).then(response => response.json());
+  }
+
+  setUserAvatar(avatar) {
+    return fetch(`${this._url}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: { authorization: this._token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ avatar: avatar }),
+    }).then(response => response.json());
+  }
 }

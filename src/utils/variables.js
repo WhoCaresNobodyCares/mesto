@@ -7,12 +7,14 @@ export const cardConfig = {
   templateLikeButtonClass: 'card__like',
   templateLikeButtonActiveClass: 'card__like_active',
   templateLikeCounterClass: 'card__number',
+  templateRemoveButtonHiddenClass: 'card__remove_hidden',
 };
 
 export const popupConfig = {
   editPopupId: 'profileEditPopup',
   addPopupId: 'cardAddPopup',
   imagePopupId: 'imageModalPopup',
+  updatePopupId: 'updatePopup',
   confirmPopupId: 'confirmPopup',
   popupCloseButtonClass: 'popup__close',
   popupOpenedClass: 'popup_opened',
@@ -26,6 +28,7 @@ export const imagePopupConfig = {
 export const formPopupConfig = {
   editPopupFormId: 'editPopupForm',
   addPopupFormId: 'addPopupForm',
+  updatePopupFormId: 'updatePopupForm',
   confirmPopupFormId: 'confirmPopupForm',
   formInputClass: 'popup__input',
 };
@@ -47,6 +50,7 @@ export const formValidatorConfig = {
   inputErrorClass: 'popup__input_error',
   submitButtonClass: 'popup__submit',
   submitButtonDisabledClass: 'popup__submit_disabled',
+  updateFormId: 'updatePopupForm',
 };
 
 export const apiConfig = {
@@ -61,3 +65,4 @@ export const profileDescription = document.querySelector('.profile__description'
 export const profileEditButton = document.querySelector('.profile__edit');
 export const profileAddButton = document.querySelector('.profile__add');
 export const profileAvatar = document.querySelector('.profile__avatar');
+export const profileOverlay = document.querySelector('.profile__overlay');
