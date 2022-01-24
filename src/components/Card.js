@@ -1,13 +1,13 @@
 export default class Card {
-  constructor(element, openPopupImage, config, confirmPopup, api, userInfo) {
+  constructor(element, openPopupImage, config, userId, api, confirmPopup) {
     this._element = element;
     this._openPopupImage = openPopupImage;
     this._config = config;
     this._template = document.querySelector(`#${this._config.templateId}`);
     this._templateContent = this._template.content.querySelector(`.${this._config.cardClass}`);
-    this._confirmPopup = confirmPopup;
+    this._userId = userId;
     this._api = api;
-    this._userInfo = userInfo;
+    this._confirmPopup = confirmPopup;
   }
 
   _handleLikeButtonClick = () => {
@@ -15,18 +15,18 @@ export default class Card {
       this._api
         .removeLike(this._id)
         .then(data => {
-          this._cloneLikeButton.classList.remove(`${this._config.templateLikeButtonActiveClass}`);
+          this._cloneLikeButton.classList.remove(this._config.templateLikeButtonActiveClass);
           this._likesCounter.textContent = data.likes.length;
         })
-        .catch(error => console.log(`Something went wrong - ${error}`));
+        .catch(error => console.log(`WASTED - ${error}`));
     } else {
       this._api
         .putLike(this._id)
         .then(data => {
-          this._cloneLikeButton.classList.add(`${this._config.templateLikeButtonActiveClass}`);
+          this._cloneLikeButton.classList.add(this._config.templateLikeButtonActiveClass);
           this._likesCounter.textContent = data.likes.length;
         })
-        .catch(error => console.log(`Something went wrong - ${error}`));
+        .catch(error => console.log(`WASTED - ${error}`));
     }
   };
 
@@ -48,19 +48,12 @@ export default class Card {
 
   _activateUserLikes() {
     this._likes.forEach(object => {
-      if (object.name === this._userInfo.getInfo().name) {
-        this._cloneLikeButton.classList.add(`${this._config.templateLikeButtonActiveClass}`);
-      }
+      object._id === this._userId && this._cloneLikeButton.classList.add(`${this._config.templateLikeButtonActiveClass}`);
     });
   }
 
   _unlockRemoveButton() {
-    this._api
-      .getUserInfo()
-      .then(data => {
-        data.name === this._owner && this._cloneRemoveButton.classList.remove(this._config.templateRemoveButtonHiddenClass);
-      })
-      .catch(error => console.log(`Something went wrong - ${error}`));
+    this._ownerId === this._userId && this._cloneRemoveButton.classList.remove(this._config.templateRemoveButtonHiddenClass);
   }
 
   _findCloneElements() {
@@ -75,14 +68,14 @@ export default class Card {
     this._clone = this._templateContent.cloneNode(true);
   }
 
-  _collectElementInfo() {
+  _collectInfo() {
     this._id = this._element._id;
     this._likes = this._element.likes;
-    this._owner = this._element.owner.name;
+    this._ownerId = this._element.owner._id;
   }
 
   makeCard() {
-    this._collectElementInfo();
+    this._collectInfo();
     this._cloneTemplate();
     this._findCloneElements();
     this._unlockRemoveButton();

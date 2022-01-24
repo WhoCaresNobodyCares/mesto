@@ -4,18 +4,18 @@ export const cardConfig = {
   templateImageClass: 'card__image',
   templateTitleClass: 'card__title',
   templateRemoveButtonClass: 'card__remove',
+  templateRemoveButtonHiddenClass: 'card__remove_hidden',
   templateLikeButtonClass: 'card__like',
   templateLikeButtonActiveClass: 'card__like_active',
   templateLikeCounterClass: 'card__number',
-  templateRemoveButtonHiddenClass: 'card__remove_hidden',
 };
 
 export const popupConfig = {
   editPopupId: 'profileEditPopup',
   addPopupId: 'cardAddPopup',
   imagePopupId: 'imageModalPopup',
-  updatePopupId: 'updatePopup',
   confirmPopupId: 'confirmPopup',
+  updatePopupId: 'updatePopup',
   popupCloseButtonClass: 'popup__close',
   popupOpenedClass: 'popup_opened',
 };
@@ -28,14 +28,15 @@ export const imagePopupConfig = {
 export const formPopupConfig = {
   editPopupFormId: 'editPopupForm',
   addPopupFormId: 'addPopupForm',
-  updatePopupFormId: 'updatePopupForm',
   confirmPopupFormId: 'confirmPopupForm',
+  updatePopupFormId: 'updatePopupForm',
   formInputClass: 'popup__input',
 };
 
 export const userInfoConfig = {
   nameClass: 'profile__username',
   descriptionClass: 'profile__description',
+  avatarClass: 'profile__avatar',
 };
 
 export const sectionConfig = {
@@ -45,12 +46,12 @@ export const sectionConfig = {
 export const formValidatorConfig = {
   editFormId: 'editPopupForm',
   addFormId: 'addPopupForm',
+  updateFormId: 'updatePopupForm',
   inputClass: 'popup__input',
   errorVisibleClass: 'popup__error_visible',
   inputErrorClass: 'popup__input_error',
   submitButtonClass: 'popup__submit',
   submitButtonDisabledClass: 'popup__submit_disabled',
-  updateFormId: 'updatePopupForm',
 };
 
 export const apiConfig = {
@@ -64,5 +65,4 @@ export const profileName = document.querySelector('.profile__username');
 export const profileDescription = document.querySelector('.profile__description');
 export const profileEditButton = document.querySelector('.profile__edit');
 export const profileAddButton = document.querySelector('.profile__add');
-export const profileAvatar = document.querySelector('.profile__avatar');
 export const profileOverlay = document.querySelector('.profile__overlay');

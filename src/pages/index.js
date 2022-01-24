@@ -15,7 +15,6 @@ import {
   profileEditButton,
   profileAddButton,
   apiConfig,
-  profileAvatar,
   profileOverlay,
 } from '../utils/variables.js';
 
@@ -27,28 +26,27 @@ import FormPopup from '../components/FormPopup.js';
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
 import FormValidator from '../components/FormValidator.js';
-import Api from '../components/Api';
+import Api from '../components/Api.js';
 import ConfirmPopup from '../components/ConfirmPopup.js';
 
 // ---
-
-const api = new Api(apiConfig.url, apiConfig.token);
 
 function handleApiErrors(error) {
   console.log(`WASTED - ${error}`);
 }
 
-api
-  .getUserInfo()
-  .then(data => {
-    profileAvatar.style = `background-image: url('${data.avatar}');`;
-    userInfo.setInfo(data.name, data.about);
-  })
-  .catch(error => handleApiErrors(error));
+const api = new Api(apiConfig.url, apiConfig.token);
+
+let userId = null;
 
 api
-  .getInitialArray()
-  .then(data => elementsSection.renderArray(data))
+  .getAllInfo()
+  .then(([userData, array]) => {
+    userId = userData._id;
+    userInfo.setAvatar(userData.avatar);
+    userInfo.setInfo(userData.name, userData.about);
+    elementsSection.renderArray(array);
+  })
   .catch(error => handleApiErrors(error));
 
 // ---
@@ -69,7 +67,7 @@ const imagePopup = new ImagePopup(
 
 function handleEditorPopupSubmit(submitValues, popup) {
   popup.querySelector('.popup__submit').textContent = 'Сохраняется...';
-  return api.setUserInfo(submitValues.nameInput, submitValues.descriptionInput).then(data => {
+  return api.setInfo(submitValues.nameInput, submitValues.descriptionInput).then(data => {
     userInfo.setInfo(data.name, data.about);
     popup.querySelector('.popup__submit').textContent = 'Сохранить';
   });
@@ -77,7 +75,7 @@ function handleEditorPopupSubmit(submitValues, popup) {
 
 function handleAdditionPopupSubmit(submitValues, popup) {
   popup.querySelector('.popup__submit').textContent = 'Создается...';
-  return api.addNewCard(submitValues.placeInput, submitValues.linkInput).then(data => {
+  return api.addCard(submitValues.placeInput, submitValues.linkInput).then(data => {
     elementsSection.renderCard(data);
     popup.querySelector('.popup__submit').textContent = 'Создать';
   });
@@ -109,8 +107,9 @@ additionPopup.setEventListeners();
 
 function handleUpdatePopupSubmit(submitValues, popup) {
   popup.querySelector('.popup__submit').textContent = 'Сохраняется...';
-  return api.setUserAvatar(submitValues.pictureInput).then(data => {
-    profileAvatar.style = `background-image: url('${data.avatar}');`;
+  return api.setAvatar(submitValues.pictureInput).then(data => {
+    console.log(data.avatar);
+    userInfo.setAvatar(data.avatar);
     popup.querySelector('.popup__submit').textContent = 'Сохранить';
   });
 }
@@ -155,7 +154,7 @@ function openPopupImage(image, title) {
 }
 
 function createNewCard(element) {
-  return new Card(element, openPopupImage, cardConfig, confirmPopup, api, userInfo).makeCard();
+  return new Card(element, openPopupImage, cardConfig, userId, api, confirmPopup).makeCard();
 }
 
 function renderInitial(element) {
