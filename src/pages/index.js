@@ -107,11 +107,14 @@ additionPopup.setEventListeners();
 
 function handleUpdatePopupSubmit(submitValues, popup) {
   popup.querySelector('.popup__submit').textContent = 'Сохраняется...';
-  return api.setAvatar(submitValues.pictureInput).then(data => {
-    console.log(data.avatar);
-    userInfo.setAvatar(data.avatar);
-    popup.querySelector('.popup__submit').textContent = 'Сохранить';
-  });
+  return api
+    .setAvatar(submitValues.pictureInput)
+    .then(data => {
+      console.log(data.avatar);
+      userInfo.setAvatar(data.avatar);
+    })
+    .catch(error => handleApiErrors(error))
+    .finally(() => (popup.querySelector('.popup__submit').textContent = 'Сохранить'));
 }
 
 const updatePopup = new FormPopup(
@@ -129,11 +132,14 @@ updatePopup.setEventListeners();
 
 function handleConfirmPopupSubmit(card, id, popup) {
   popup.querySelector('.popup__submit').textContent = 'Удаляется...';
-  return api.deleteCard(id).then(() => {
-    card.remove();
-    card = null;
-    popup.querySelector('.popup__submit').textContent = 'Да';
-  });
+  return api
+    .deleteCard(id)
+    .then(() => {
+      card.remove();
+      card = null;
+    })
+    .catch(error => handleApiErrors(error))
+    .finally(() => (popup.querySelector('.popup__submit').textContent = 'Да'));
 }
 
 const confirmPopup = new ConfirmPopup(
