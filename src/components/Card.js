@@ -47,6 +47,7 @@ export default class Card {
   }
 
   _activateUserLikes() {
+    // !!! method some()
     this._likes.forEach(object => {
       object._id === this._userId && this._cloneLikeButton.classList.add(`${this._config.templateLikeButtonActiveClass}`);
     });
