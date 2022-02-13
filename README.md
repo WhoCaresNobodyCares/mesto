@@ -13,7 +13,7 @@
 - Babel
 ## Методология
 - BEM 
-## Команды выполнения
+## Команды
 - npm run build
 - npm run dev
 ## GitHub Pages
